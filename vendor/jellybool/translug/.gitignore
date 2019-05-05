@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+.idea
+/vendor
+composer.phar
+composer.lock
+.DS_Store
+.phpcomplete_extended

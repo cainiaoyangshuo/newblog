@@ -1,0 +1,39 @@
+{
+    "name": "jellybool/translug",
+    "description": "Translate Chinese And Then Make It Sluggable",
+    "keywords": ["slug", "translate"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JellyBool",
+            "email": "jellybool@outlook.com"
+        }
+    ],
+    "require": {
+      "php": ">=5.5.9",
+      "guzzlehttp/guzzle": "~5.3|~6.0"
+    },
+  "require-dev": {
+    "phpunit/phpunit": "^4.0",
+    "illuminate/support": "^5.2"
+  },
+  "minimum-stability" : "dev",
+  "autoload": {
+    "psr-4": {
+      "JellyBool\\Translug\\": "src/"
+    },
+    "files": [
+      "src/helpers/functions.php"
+    ]
+  },
+  "extra": {
+      "laravel": {
+        "providers": [
+            "\\JellyBool\\Translug\\TranslugServiceProvider"
+        ],
+        "aliases": {
+           "Translug": "\\JellyBool\\Translug\\TranslugFacade"
+        }
+      }
+  }
+}
