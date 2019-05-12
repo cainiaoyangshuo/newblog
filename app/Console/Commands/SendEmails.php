@@ -33,8 +33,11 @@ class SendEmails extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $this->config = config('third');
     }
 
+    public $config;
     public static $goodDay = ['晴', '多云', ];
     public static $badDay = ['小雨', '中雨', '大雨'];
 
@@ -46,42 +49,45 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        //
-        $key = config('third.gaode.key');
-        $this->getWeatherInfo(1,110105, $key);
+
+        $key = $this->config['gaode']['key'];
+        $targets = $this->config['targetAdd'];
+        $cities = $this->config['cityCode'];
+        $this->getWeatherInfo($targets['me'],$cities['北京'], $key);
     }
 
-    public function getWeatherInfo($date, $city, $key, $extensions = 'all')
+    public function getWeatherInfo($targetAdd, $city, $key, $extensions = 'all')
     {
 
-        $url = config('third.gaode.url');
+        $url = $this->config['gaode']['url'];
 
         $params = ['city' => $city, 'key' => $key, 'extensions' => $extensions];
+
         $url = $url .'?'. http_build_query($params);
 
         $res = Curl::get($url);
 
         if (!empty($res)) {
             $res = json_decode($res, true);
-            $forecasts = $res['forecasts'];
-            $casts = $forecasts[0]['casts'];
-            foreach ($casts as $key => $cast) {
-                $casts[$key]['week'] = $this->weekMap[$cast['week']-1];
+            $forecasts = $res['forecasts'][0];      //返回体为一个数组，只有一个元素取第一个
+            $casts = $forecasts['casts'];
+            $today = date('Y-m-d', time());   //今天的日期突出颜色
 
+            foreach ($casts as $key => $cast) {
+                if ($today == $cast['date']) {
+                    $casts[$key]['week'] = '今天';
+                    continue;
+                }
+                $casts[$key]['week'] = $this->weekMap[$cast['week']-1];
             }
 
-            $targetAddress = '3546544379@qq.com';
-            Mail::to($targetAddress)->send(new WeatherForecast($casts));
+            $targetAddress = $targetAdd;
+            Mail::to($targetAddress)->send(new WeatherForecast($casts, $forecasts['city']));
         } else {
             echo 'something wrong!';
             exit;
         }
 
-        //Mail::send('commands.weather',['name' => config('mail.from.name')],function($message){
-        //    $targetAddress = '3546544379@qq.com';
-        //    $to = $targetAddress;
-        //    $message->to($to);
-        //});
     }
 
 }
