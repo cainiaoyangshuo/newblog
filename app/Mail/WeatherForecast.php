@@ -33,7 +33,7 @@ class WeatherForecast extends Mailable
      */
     public function build()
     {
-        $subject = sprintf("%s地区 %s 到 %s 的天气情况", $this->city, date('n月j号', time()), date('n月j号', strtotime('+4 day')));
+        $subject = sprintf("%s %s地区 %s 到 %s 的天气情况", $this->city['rainToday'], $this->city['city'], date('n月j号', time()), date('n月j号', strtotime('+4 day')));
 
         return $this->subject($subject)->view('commands.weather');
     }

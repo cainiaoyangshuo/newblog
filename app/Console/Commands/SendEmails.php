@@ -53,7 +53,7 @@ class SendEmails extends Command
         $key = $this->config['gaode']['key'];
         $targets = $this->config['targetAdd'];
         $cities = $this->config['cityCode'];
-        $this->getWeatherInfo($targets['me'],$cities['北京'], $key);
+        $this->getWeatherInfo($targets['me'],$cities['朝阳'], $key);
     }
 
     public function getWeatherInfo($targetAdd, $city, $key, $extensions = 'all')
@@ -72,17 +72,24 @@ class SendEmails extends Command
             $forecasts = $res['forecasts'][0];      //返回体为一个数组，只有一个元素取第一个
             $casts = $forecasts['casts'];
             $today = date('Y-m-d', time());   //今天的日期突出颜色
+            $toArr['city'] = $forecasts['city'];
+            $toArr['rainToday'] = '';
 
             foreach ($casts as $key => $cast) {
                 if ($today == $cast['date']) {
                     $casts[$key]['week'] = '今天';
+
+                    if (strstr($cast['dayweather'], '雨')) {
+                        $toArr['rainToday'] = '今天有雨 🌧';
+                    }
+
                     continue;
                 }
                 $casts[$key]['week'] = $this->weekMap[$cast['week']-1];
             }
 
             $targetAddress = $targetAdd;
-            Mail::to($targetAddress)->send(new WeatherForecast($casts, $forecasts['city']));
+            Mail::to($targetAddress)->send(new WeatherForecast($casts, $toArr));
         } else {
             echo 'something wrong!';
             exit;
