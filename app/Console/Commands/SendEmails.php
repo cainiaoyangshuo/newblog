@@ -42,6 +42,13 @@ class SendEmails extends Command
     public static $badDay = ['小雨', '中雨', '大雨'];
 
     public $weekMap = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+    public $tips = [
+        '1' => '气温较低，注意保暖哦',
+        '2' => '气温较高，注意防暑哦',
+        '3' => '今天有雨，别忘带伞哦',
+
+    ];
     /**
      * Execute the console command.
      *
@@ -53,10 +60,21 @@ class SendEmails extends Command
         $key = $this->config['gaode']['key'];
         $targets = $this->config['targetAdd'];
         $cities = $this->config['cityCode'];
-        $this->getWeatherInfo($targets['me'],$cities['朝阳'], $key);
+
+        $this->getWeatherInfo($targets['zhou']['email'],$cities[$targets['zhou']['city']]);
+
+        $this->getWeatherInfo($targets['zhang']['email'],$cities[$targets['zhang']['city']]);
+        
+        $this->getWeatherInfo($targets['me']['email'],$cities[$targets['me']['city']]);
+
     }
 
-    public function getWeatherInfo($targetAdd, $city, $key, $extensions = 'all')
+    public function send()
+    {
+
+    }
+
+    public function getWeatherInfo($targetAdd, $city, $key = 'caee842bfccc97394264c992c308dc21', $extensions = 'all')
     {
 
         $url = $this->config['gaode']['url'];
@@ -74,13 +92,29 @@ class SendEmails extends Command
             $today = date('Y-m-d', time());   //今天的日期突出颜色
             $toArr['city'] = $forecasts['city'];
             $toArr['rainToday'] = '';
+            $toArr['tips'] = '';
 
             foreach ($casts as $key => $cast) {
                 if ($today == $cast['date']) {
                     $casts[$key]['week'] = '今天';
+                    $dayTemp = $cast['daytemp'];
+                    $nightTemp = $cast['nighttemp'];
+
+                    $toArr['dayTemp'] = $dayTemp;
+                    $toArr['nightTemp'] = $nightTemp;
+
+
+                    if ($dayTemp > 33) {
+                        $toArr['tips'] = $this->tips['2'];
+                    } elseif ($cast['daytemp'] < 18) {
+                        $toArr['tips'] = $this->tips['1'];
+                    }
 
                     if (strstr($cast['dayweather'], '雨')) {
-                        $toArr['rainToday'] = '今天有雨 🌧';
+                        $toArr['rainToday'] = '有雨 ！！！';
+                        $toArr['tips'] = $this->tips['3'];
+                    } else {
+                        $toArr['rainToday'] = '晴️！';
                     }
 
                     continue;

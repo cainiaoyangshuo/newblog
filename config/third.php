@@ -12,7 +12,18 @@ return [
     ],
 
     'targetAdd' => [
-        'me' => '3546544379@qq.com',
+        'me' => [
+            'email' => '3546544379@qq.com',
+            'city' => '朝阳',
+        ],
+        'zhou' => [
+            'email' => '534913361@qq.com',
+            'city' => '绥滨',
+        ],
+        'zhang' => [
+            'email' => '812330104@qq.com',
+            'city' => '哈尔滨',
+        ],
     ],
 
     'cityCode' => [
