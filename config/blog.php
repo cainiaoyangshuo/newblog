@@ -40,7 +40,7 @@ return [
     // Article Page
     'article' => [
         'title'       => 'Nothing is impossible.',
-        'description' => 'https://pigjian.com',
+        'description' => 'http://jack24.xyz',
         'number'      => 15,
         'sort'        => 'desc',
         'sortColumn'  => 'published_at',
@@ -57,7 +57,7 @@ return [
     'footer' => [
         'github' => [
             'open' => true,
-            'url'  => 'https://github.com/jcc',
+            'url'  => 'https://github.com/cainiaoyangshuo',
         ],
         'twitter' => [
             'open' => false,
