@@ -1,33 +1,3 @@
-<p align="center">
-<a href="https://pigjian.com/">
-<img src="https://pigjian.com/uploads/Logo.png" alt="Powered By Jiajian Chan" width="160">
-</a>
-</p>
-
-<p align="center">🎈 PJ Blog is an open source blog built with Laravel and Vue.js. <a href="https://pigjian.com">https://pigjian.com</a></p>
-
-<p align="center">
-  <b>Special thanks to the generous sponsorship by:</b>
-  <br><br>
-  <a href="https://www.yousails.com">
-    <img src="https://yousails.com/banners/brand.png" width=350>
-  </a><br/>
-  <a href="https://www.upyun.com">
-    <img src="https://pigjian.com/storage/logo/upyun.png" width=300>
-  </a>
-</p>
-
-# PJ Blog
-
-This is a powerful blog, I try to build the blog more beautiful, more convenient. 
-
-`Laravel 5.*` and `Vuejs 2.*` combined with the establishment of a good response and quickly dashboard, the dashboard made through the `Vuejs` component development.
-
-I believe it will be better and better. If you are interested in this, you can join and enjoy it.
-
-Here is [documents](https://manual.pigjian.com/)
-
-[Example](http://example.pigjian.com)
 
 ## Basic Features
 
@@ -116,9 +86,6 @@ npm run production
 php artisan blog:install
 ```
 
-## Contributors
-
-- [Jiajian Chan](http://github.com/jcc)
 
 ## Thanks
 
