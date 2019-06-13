@@ -19,6 +19,10 @@ class WeChat
 
     }
 
+    public function getResponse()
+    {
+        return $this->app->server->serve();
+    }
 
 
 

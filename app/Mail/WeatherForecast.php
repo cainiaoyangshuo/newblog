@@ -34,7 +34,7 @@ class WeatherForecast extends Mailable
     public function build()
     {
         $info = $this->city;
-        $subject = sprintf("%s %s今天%s，最高气温%s°，最低气温%s°  %s ", $info['rainToday'], $info['city'], $info['rainToday'], $info['dayTemp'], $info['nightTemp'], $info['tips']);
+        $subject = sprintf("%s今天%s 最高气温%s°，最低气温%s°  %s ", $info['rainToday'], $info['city'], $info['rainToday'], $info['dayTemp'], $info['nightTemp'], $info['tips']);
 
         return $this->subject($subject)->view('commands.weather');
     }

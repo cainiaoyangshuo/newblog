@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\BlogInstall::class,
         Commands\CreateAdmin::class,
         SendEmails::class,
+        Commands\ImportCityCodes::class,
     ];
 
     /**

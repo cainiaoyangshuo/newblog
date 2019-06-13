@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/../../work/firstp2p/.idea/firstp2p.iml" filepath="$PROJECT_DIR$/../../work/firstp2p/.idea/firstp2p.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../git/testAPI/.idea/laravel.iml" filepath="$PROJECT_DIR$/../../git/testAPI/.idea/laravel.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../leetcode/.idea/leetcode.iml" filepath="$PROJECT_DIR$/../../leetcode/.idea/leetcode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../weather/.idea/weather.iml" filepath="$PROJECT_DIR$/../weather/.idea/weather.iml" />
     </modules>
   </component>
 </project>

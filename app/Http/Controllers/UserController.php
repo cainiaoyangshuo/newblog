@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Auth;
-use Hash;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Notifications\FollowedUser;
 
@@ -199,7 +199,7 @@ class UserController extends Controller
      */
     public function notifications()
     {
-        if (!\Auth::id()) {
+        if (!Auth::id()) {
             abort(404);
         }
 
@@ -215,7 +215,7 @@ class UserController extends Controller
      */
     public function markAsRead()
     {
-        if (!\Auth::id()) {
+        if (!Auth::id()) {
             abort(404);
         }
 

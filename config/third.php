@@ -8,8 +8,19 @@ return [
     // 高德
     'gaode' => [
         'key' => 'caee842bfccc97394264c992c308dc21',
-        'url' => 'https://restapi.amap.com/v3/weather/weatherInfo',
+        'api' => [
+            'weatherInfo' => ['url' => 'https://restapi.amap.com/v3/weather/weatherInfo', 'method' => 'GET'],
+            'district' => ['url' => 'https://restapi.amap.com/v3/config/district', 'method' => 'GET'],
+        ]
     ],
+
+    'JingDong' => [
+        'key' => '5812b2702cea21d7a47b39c513d8c27b',
+        'api' => [
+            'dictionary_district' => ['url' => 'https://way.jd.com/RTBAsia/dictionary_district'],
+        ]
+    ],
+
 
     'targetAdd' => [
         'me' => [

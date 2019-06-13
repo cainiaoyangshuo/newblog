@@ -77,13 +77,15 @@ class SendEmails extends Command
     public function getWeatherInfo($targetAdd, $city, $key = 'caee842bfccc97394264c992c308dc21', $extensions = 'all')
     {
 
-        $url = $this->config['gaode']['url'];
+        $conf = $this->config['gaode']['api']['weatherInfo'];
+        $url = $conf['url'];
+        $method = strtolower($conf['method']);
 
         $params = ['city' => $city, 'key' => $key, 'extensions' => $extensions];
 
         $url = $url .'?'. http_build_query($params);
 
-        $res = Curl::get($url);
+        $res = Curl::$method($url);
 
         if (!empty($res)) {
             $res = json_decode($res, true);
@@ -91,7 +93,7 @@ class SendEmails extends Command
             $casts = $forecasts['casts'];
             $today = date('Y-m-d', time());   //今天的日期突出颜色
             $toArr['city'] = $forecasts['city'];
-            $toArr['rainToday'] = '';
+
             $toArr['tips'] = '';
 
             foreach ($casts as $key => $cast) {
@@ -111,12 +113,9 @@ class SendEmails extends Command
                     }
 
                     if (strstr($cast['dayweather'], '雨')) {
-                        $toArr['rainToday'] = '有雨 ！！！';
                         $toArr['tips'] = $this->tips['3'];
-                    } else {
-                        $toArr['rainToday'] = '晴️！';
                     }
-
+                    $toArr['dayWeather'] = $cast['dayweather'];
                     continue;
                 }
                 $casts[$key]['week'] = $this->weekMap[$cast['week']-1];
@@ -124,6 +123,7 @@ class SendEmails extends Command
 
             $targetAddress = $targetAdd;
             Mail::to($targetAddress)->send(new WeatherForecast($casts, $toArr));
+
         } else {
             echo 'something wrong!';
             exit;

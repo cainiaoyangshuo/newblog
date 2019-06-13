@@ -24,5 +24,6 @@
     <orderEntry type="module" module-name="leetcode" />
     <orderEntry type="module" module-name="firstp2p" />
     <orderEntry type="module" module-name="laravel" />
+    <orderEntry type="module" module-name="weather" />
   </component>
 </module>
