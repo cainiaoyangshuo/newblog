@@ -35,14 +35,9 @@
 ### 1. Clone the source code or create new project.
 
 ```shell
-git clone https://github.com/jcc/blog.git
+git clone git@github.com:cainiaoyangshuo/newblog.git
 ```
 
-OR
-
-```shell
-composer create-project jcc/blog
-```
 
 ### 2. Set the basic config
 
