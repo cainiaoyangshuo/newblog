@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BuxianTask;
 use App\Article;
 use App\Visitor;
 use Illuminate\Http\Request;
@@ -15,10 +16,14 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::checkAuth()
-            ->orderBy(config('blog.article.sortColumn'), config('blog.article.sort'))
-            ->paginate(config('blog.article.number'));
+        // $articles = Article::checkAuth()
+        //     ->orderBy(config('blog.article.sortColumn'), config('blog.article.sort'))
+        //     ->paginate(config('blog.article.number'));
 
+        $articles = BuxianTask::latest()->where('id','=',1)->get();
+
+dd($articles);
+exit();
         return view('article.index', compact('articles'));
     }
 

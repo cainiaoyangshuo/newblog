@@ -52,13 +52,5 @@ class Tasks extends Model
         return $result;
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id', 'content', 'category','sex','min_age','max_age','valid_at','status'
-    ];
 
 }
