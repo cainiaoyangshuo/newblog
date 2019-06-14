@@ -82,3 +82,9 @@ Route::get('/user', 'UserController@index');
 Route::get('/', 'TasksController@index');
 Route::get('/detail', 'TasksController@detail');
 
+Route::get('/publish', function (){
+    return View::make('buxian.publish');
+});
+Route::get('/edit', function (){
+    return View::make('buxian.editinfo');
+});
