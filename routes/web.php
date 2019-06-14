@@ -77,6 +77,9 @@ Route::get('{slug}', 'ArticleController@show');
 
 
 Route::get('/task', 'TasksController@index');
+Route::get('tasks/create', 'TasksController@create');
+Route::post('tasks', 'TasksController@store');
+
 Route::get('/user', 'UserController@index');
 
 Route::get('/', 'TasksController@index');
