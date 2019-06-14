@@ -42,17 +42,16 @@ class Tasks extends Model
             $pageSize = intval($pageSize) >= 0 ? intval($pageSize) : 10;
             $offset = ($page - 1) * $pageSize;
             $limit = $pageSize;
-            $res = DB::table(self::TABLE)->offset($offset)->limit($limit)->get();
-            return $res;
+            $res = DB::table(self::TABLE)->offset($offset)->limit($limit)->get()->toArray();
         }
 
         if ($count) {
-            $res['count'] = DB::table(self::TABLE)->count();
-            $res['list'] = DB::table(self::TABLE)->get();
-            return $res;
+            $coun = DB::table(self::TABLE)->count();
         }
 
-        return false;
+        $result['count'] = $coun ?? '';
+        $result['list'] = $res ?? '';
+        return $result;
     }
 
     /**
