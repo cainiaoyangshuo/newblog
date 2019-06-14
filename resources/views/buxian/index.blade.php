@@ -43,9 +43,12 @@
                     <p class="getBtn">
                         领走愿望
                     </p>
-
                     <div class="top">
-                        <img src="{{ $value['head_image'] }}" class="avatar">
+                        @if(!empty($value['head_image']))
+                            <img src="{{ $value['head_image'] }}" class="avatar">
+                        @else
+                            <img src="/images/buxian/avatar.jpg" class="avatar">
+                        @endif
                         <span class="name ellipsis">{{ $value['user_name'] }}</span>
                         <span class="time">2分钟前</span>
                     </div>
@@ -112,7 +115,7 @@
         <div class="conItem" data-index="2"></div>
         <div class="conItem meItem" data-index="3">
             <div class="divItem avatarItem">
-                <img src="/images/buxian/buxian/avatar.jpg" class="avatar">
+                <img src="/images/buxian/avatar.jpg" class="avatar">
                 <span class="name">咸鱼不闲</span>
             </div>
             <a class="divItem infoItem" href="editInfo.html">

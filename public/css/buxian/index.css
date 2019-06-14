@@ -155,8 +155,6 @@
     float: left;
     display: block;
     margin-right: 0.06rem;
-    background: url(/images/buxian/avatar.jpg) no-repeat center;
-    background-size: 100% 100%;
 }
 .listUl li .name{
     display: block;
