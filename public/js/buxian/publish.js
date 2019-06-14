@@ -1,4 +1,9 @@
 $(function(){
+    // 返回
+    $(".goBack").click(function () {
+      history.go(-1);
+    })
+
     $(".inputArea").keyup(function(){
         var val=$(this).val();
         var num=val.length;
@@ -125,7 +130,7 @@ $(function(){
         var content = $(".inputArea").val();
         var token=$("input[name=_token]").val();
 
-        
+
         $.ajax({
             "url": "/tasks/store",
             "dataType": "json",
@@ -139,7 +144,7 @@ $(function(){
                 _token: token
             },
             "success": function (response) {
-
+                location.href="/";
             },
             "fail": function (msg) {
                 P2PWAP.ui.toast(msg);

@@ -23,36 +23,40 @@
     <div class="conBox">
         <div class="editItem">
             <span class="label">头像</span>
-            <img src="/images/buxian/avatar.jpg" class="avatar">
+            @if(!empty($list['imageUrl']))
+                <img src="{{ $list['imageUrl'] }}" class="avatar">
+            @else
+                <img src="/images/buxian/avatar.jpg" class="avatar">
+            @endif
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">
             <span class="label">ID</span>
-            <span class="labelCon">3333333</span>
+            <span class="labelCon">{{ $list['id'] }}</span>
         </div>
         <div class="editItem">
             <span class="label">昵称</span>
-            <span class="labelCon">咸鱼不闲</span>
+            <span class="labelCon">{{ $list['userName'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">
             <span class="label">年龄</span>
-            <span class="labelCon">27</span>
+            <span class="labelCon">{{ $list['age'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">
             <span class="label">星座</span>
-            <span class="labelCon">天秤座</span>
+            <span class="labelCon">{{ $list['constellation'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">
             <span class="label">常出没地</span>
-            <span class="labelCon">北京</span>
+            <span class="labelCon">{{ $list['oftenAppear'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">
             <span class="label">微信号</span>
-            <span class="labelCon">332342345325</span>
+            <span class="labelCon">{{ $list['WeChat'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
 

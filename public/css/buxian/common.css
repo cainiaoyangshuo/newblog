@@ -72,6 +72,9 @@
     position: relative;
     padding-left: 0.06rem;
 }
+.conBox .editItem input{
+    display: none;
+}
 .conBox .editItem span{
     color: #fff;
     font-size: 0.14rem;

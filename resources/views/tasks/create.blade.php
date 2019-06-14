@@ -26,37 +26,39 @@
         <a class="publishBtn" href="javascript:void(0)">发布</a>
     </div>
     <div class="conBox">
-        <div class="editItem">
-            <span class="label">陪伴类型</span>
-            <span class="labelCon" id="typeSelect">请选择</span>
-            <img src="/images/buxian/arrow.png" class="arrow">
-        </div>
-        <div class="editItem">
-            <span class="label">性别</span>
-            <span class="labelCon" id="sexSelect">不限</span>
-            <img src="/images/buxian/arrow.png" class="arrow">
-        </div>
-        <div class="editItem">
-            <span class="label">年龄</span>
-            <span class="labelCon" id="ageSelect">不限</span>
-            <img src="/images/buxian/arrow.png" class="arrow">
-        </div>
-        <div class="editItem">
-            <span class="label">陪伴发布有效期</span>
-            <span class="labelCon" id="daySelect">7天</span>
-            <img src="/images/buxian/arrow.png" class="arrow">
-        </div>
-        <div class="editAreaBox">
-            <span class="label">陪伴内容</span>
-            <div class="editArea">
-                <textarea maxlength="200" class="inputArea"></textarea>
-                <div class="numBox">
-                    <span class="num">0</span>
-                    <span>/</span>
-                    <span class="restNum">200</span>
+       
+            <div class="editItem">
+                <span class="label">陪伴类型</span>
+                <span class="labelCon" id="typeSelect">请选择</span>
+                <img src="/images/buxian/arrow.png" class="arrow">
+            </div>
+            <div class="editItem">
+                <span class="label">性别</span>
+                <span class="labelCon" id="sexSelect" data-id="0">不限</span>
+                <img src="/images/buxian/arrow.png" class="arrow">
+            </div>
+            <div class="editItem">
+                <span class="label">年龄</span>
+                <span class="labelCon" id="ageSelect" data-id="0">不限</span>
+                <img src="/images/buxian/arrow.png" class="arrow">
+            </div>
+            <div class="editItem">
+                <span class="label">陪伴发布有效期</span>
+                <span class="labelCon" id="daySelect" data-id="2">7天</span>
+                <img src="/images/buxian/arrow.png" class="arrow">
+            </div>
+            <div class="editAreaBox">
+                <span class="label">陪伴内容</span>
+                <div class="editArea">
+                    <textarea maxlength="200" class="inputArea"></textarea>
+                    <div class="numBox">
+                        <span class="num">0</span>
+                        <span>/</span>
+                        <span class="restNum">200</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        
     </div>
 </div>
 </div>

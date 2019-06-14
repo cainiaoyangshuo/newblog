@@ -30,7 +30,7 @@
     </div>
     <div class="labelBox">
         <span class="label">Home</span>
-        <a href="buxian.publish">
+        <a href="/tasks/create">
             <img src="/images/buxian/add.png" class="addBtn">
         </a>
     </div>
@@ -65,50 +65,12 @@
         </div>
         <div class="conItem wishItem" data-index="1">
             <ul class="navBox">
-                <li class="active">已发布</li>
-                <li>已领取</li>
+                <li class="active" data-type="1">已发布</li>
+                <li data-type="2">已领取</li>
             </ul>
             <div class="listBox">
                 <ul class="listUl">
-                    <li class="waitGet">
-                        <div class="top">
-                            <div class="avatar"></div>
-                            <span class="name ellipsis">爱她就给她快乐吧</span>
-                            <span class="time">2分钟前</span>
-                        </div>
-                        <div class="con">
-                            <h3>要一起去香山爬山吗？要一起去香山爬山吗？要一起去香山爬山吗？</h3>
-                        </div>
-                        <p class="status">待领取</p>
-                        <p class="deleteBtn">删除</p>
-                        <p class="mysteryInfo">神秘人信息</p>
-                    </li>
-                    <li class="alreadyGet">
-                        <div class="top">
-                            <div class="avatar"></div>
-                            <span class="name ellipsis">爱她就给她快乐吧</span>
-                            <span class="time">2分钟前</span>
-                        </div>
-                        <div class="con">
-                            <h3>要一起去香山爬山吗？要一起去香山爬山吗？要一起去香山爬山吗？</h3>
-                        </div>
-                        <p class="status">已领取</p>
-                        <p class="deleteBtn">删除</p>
-                        <p class="mysteryInfo">神秘人信息</p>
-                    </li>
-                    <li class="finish">
-                        <div class="top">
-                            <div class="avatar"></div>
-                            <span class="name ellipsis">爱她就给她快乐吧</span>
-                            <span class="time">2分钟前</span>
-                        </div>
-                        <div class="con">
-                            <h3>要一起去香山爬山吗？要一起去香山爬山吗？要一起去香山爬山吗？</h3>
-                        </div>
-                        <p class="status">已结束</p>
-                        <p class="deleteBtn">删除</p>
-                        <p class="mysteryInfo">神秘人信息</p>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -118,7 +80,7 @@
                 <img src="/images/buxian/avatar.jpg" class="avatar">
                 <span class="name">咸鱼不闲</span>
             </div>
-            <a class="divItem infoItem" href="buxian.editinfo">
+            <a class="divItem infoItem" href="/buser?userId=600032">
                 <span>个人资料</span>
                 <img src="/images/buxian/info.png" alt="">
             </a>

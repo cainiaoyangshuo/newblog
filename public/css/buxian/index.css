@@ -329,6 +329,7 @@
     right: 0.1rem;
     top: 0.2rem;
     border-radius: 0.15rem;
+    line-height: 0.22rem;
 }
 .wishItem .listUl li.alreadyGet .mysteryInfo{
     display: block;

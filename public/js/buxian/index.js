@@ -17,10 +17,13 @@ $(function(){
         } else {
             $(".addBtn").show();
         }
+        if(index==1){
+            //获取wish列表数据
+            getWish(1);
+        }
     })
 
     $(".squareItem .listUl li").each(function () {
-        console.log($(this).find(".con h3").height())
         var height = $(this).find(".con h3").height();
         if (height>51){
             $(this).find(".seeMore").show();
@@ -50,6 +53,65 @@ $(function(){
         $(".maskCon .tipBottom").text("认领后将会把你的个人信息告知邀请人！");
     })
 
+    //获取wish列表数据
+    getWish(1);
+
+    //wish列表类型切换
+    $(".wishItem .navBox li").click(function(){
+        var type=$(this).attr("data-type");
+        getWish(type);
+    })
+
+    function getWish(type){
+        $(".loading").show();
+            $.ajax({
+                "url": "/wish",
+                "dataType": "json",
+                "type": "get",
+                "data": {
+                    type: type,
+                    userId:600032
+                },
+                "success": function (response) {
+                    $(".loading").hide();
+                    if (response.length>0){
+                        var list = response;
+                        var $lis='';
+                        $.each(list,function(index,item){
+                            if(item.status=="0"){//待领取
+                                $lis += '<li class="waitGet">';
+                            } else if (item.status == "1"){//已领取
+                                $lis += '<li class="alreadyGet">';
+                            }else{//已结束
+                                $lis += '<li class="finish">';
+                            }
+                            item.head_image = item.head_image ? item.head_image : "/images/buxian/avatar.jpg";
+                            var $status = item.status == 0 ? '待领取' : item.status == 1 ? '已领取' : '已结束';
+                            $lis+='<div class="top">' +
+                                        '<img src="'+item.head_image+'" class="avatar">' +
+                                        '<span class="name ellipsis">' + item.user_name + '</span>' +
+                                        '<span class="time">' + item.time + '</span>' +
+                                    '</div>' +
+                                    '<div class="con">' +
+                                        '<h3>' + item.content + '</h3>' +
+                                    '</div>' +
+                                    '<p class="status">' + $status + '</p>' ;
+                            if(item.status==0){
+                                $lis += '<p class="deleteBtn">删除</p>';
+                            }else if(item.status==1){
+                                $lis += '<p class = "mysteryInfo"> 神秘人信息 </p>';
+                            }
+                            $lis += '</li>';
+                        })
+                        $(".wishItem .listUl").html($lis);
+                    }
+                },
+                "fail": function (msg) {
+                    P2PWAP.ui.toast(msg);
+                }
+            })
+    }
+
     $(".mask").click(function(){
         $(this).hide();
     })
@@ -60,10 +122,7 @@ $(function(){
         $(this).addClass("active");
     })
 
-    // 返回
-    $(".goBack").click(function(){
-        history.go(-1);
-    })
+    
 
     // wish列表跳详情
     $(".wishItem .listUl li").click(function(){
