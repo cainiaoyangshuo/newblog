@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateTaskRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\Controller;
+use App\Http\Controllers\BaseController;
 
-class TasksController extends Controller
+class TasksController extends BaseController
 {
     /**
      * 任务列表
@@ -79,20 +80,15 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         // 接受post方法
-        $data = $request->getContent();
-        $data = json_decode($data);
-        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($data))));
         $requestArray = $request->all();
-
-        Log::info(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($requestArray))));
         // 有效天数，转化为时间戳
-        if($requestArray['valid_at'] > 0){
+        if(isset($requestArray['valid_at']) || $requestArray['valid_at'] > 0){
             $date = date('Y-m-d H:i:s',time() + $requestArray['valid_at'] * 86400);
             $requestArray['valid_at'] = Carbon::createFromFormat('Y-m-d H:i:s',$date);
         }
-        BuxianTasks::create(array_merge(array('user_id'=>1,'status'=>1), $requestArray));
-        return redirect('/');
-
+        $result = BuxianTasks::create(array_merge(array('user_id'=>1,'status'=>1), $requestArray));
+        $jsonData = (isset($result['id']) && ($result['id'] > 0)) ? $this->returnJsonData($result['id']) : $this->returnJsonData('',1004,'插入失败');
+        return $jsonData;
     }
 
     /**
