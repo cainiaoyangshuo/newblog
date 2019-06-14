@@ -37,6 +37,7 @@ $(function(){
       callback: function (indexArr, data) {
         console.log(data); //返回选中的json数据
         $("#typeSelect").attr("data-id", data[0].id);
+        $("#typeSelect").parents(".editItem").find("input").val(data[0].id)
       }
     });
     var sexSelect = new MobileSelect({
@@ -121,6 +122,8 @@ $(function(){
         var category = $("#typeSelect").attr("data-id");
         var age = $("#ageSelect").attr("data-id");
         var valid_at = $("#daySelect").attr("data-id");
+        var content = $(".inputArea").val();
+        var token=$("input[name=_token]").val();
 
         $.ajax({
             "url": "/tasks/store",
@@ -130,7 +133,9 @@ $(function(){
                 sex: sex,
                 category: category,
                 age: age,
-                valid_at: valid_at
+                valid_at: valid_at,
+                content: content,
+                _token: token
             },
             "success": function (response) {
 
