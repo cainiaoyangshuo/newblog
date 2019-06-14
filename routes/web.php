@@ -76,4 +76,4 @@ Route::get('{slug}', 'ArticleController@show');
 
 
 Route::get('/task', 'TasksController@index');
-
+Route::get('/user', 'UserController@index');
