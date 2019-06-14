@@ -89,7 +89,8 @@ Route::get('/user', 'UserController@index');
 
 Route::get('/', 'TasksController@index');
 Route::get('/detail', 'TasksController@detail');
-
+Route::get('/buser', 'BuserController@index');
+Route::get('/wish', 'WishController@index');
 Route::get('/publish', function (){
     return View::make('buxian.publish');
 });
