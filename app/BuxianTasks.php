@@ -32,13 +32,14 @@ class BuxianTasks extends Model
         self::FENLEI_DIANYING => '电影',
     );
 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'content', 'category','sex','min_age','max_age','valid_at','status'
+        'user_id', 'title', 'content', 'category','sex','age','min_age','max_age','valid_at','status'
     ];
 
 }
