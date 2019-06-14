@@ -39,7 +39,7 @@
             <ul class="listUl">
                 @foreach($list as $value)
                 <li>
-                    <!-- <img src="images/buxian/more.png" class="moreBtn"> -->
+                    <!-- <img src="/images/buxian/buxian/more.png" class="moreBtn"> -->
                     <p class="getBtn">
                         领走愿望
                     </p>
