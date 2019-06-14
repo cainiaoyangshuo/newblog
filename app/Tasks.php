@@ -36,21 +36,19 @@ class Tasks extends Model
 
     static public function getTaskList($count = false, $makePage = false, $page = 1, $pageSize = 10)
     {
-        if ($makePage) {
-            //$res = DB::table(self::TABLE)->paginate();
-            $page = intval($page) >= 1 ? intval($page) : 1;
-            $pageSize = intval($pageSize) >= 0 ? intval($pageSize) : 10;
-            $offset = ($page - 1) * $pageSize;
-            $limit = $pageSize;
-            $res = DB::table(self::TABLE)->offset($offset)->limit($limit)->get()->toArray();
-        }
-
-        if ($count) {
-            $coun = DB::table(self::TABLE)->count();
-        }
-
-        $result['count'] = $coun ?? '';
-        $result['list'] = $res ?? '';
+        //if ($makePage) {
+        //    //$res = DB::table(self::TABLE)->paginate();
+        //    $page = intval($page) >= 1 ? intval($page) : 1;
+        //    $pageSize = intval($pageSize) >= 0 ? intval($pageSize) : 10;
+        //    $offset = ($page - 1) * $pageSize;
+        //    $limit = $pageSize;
+        //    $res = DB::table(self::TABLE)->limit($limit)->get()->toArray();
+        //}
+        //
+        //if ($count) {
+        //    $coun = DB::table(self::TABLE)->count();
+        //}
+        $result = DB::table(self::TABLE)->get()->toArray();
         return $result;
     }
 

@@ -24,10 +24,8 @@ class TasksController extends Controller
         if (!isset($page)) {
             return false;
         }
-        $pageSize = 3;
+        $pageSize = 10;
         $list = Tasks::getTaskList(true, true, $page, $pageSize);
-        $count = $list['count'];
-        $list = $list['list'];
 
         $results = [];
 
@@ -36,24 +34,24 @@ class TasksController extends Controller
             $user = DB::table('buxian_user')->where('id', $value->user_id)->first();
 
             $result['id'] = $value->id;
-            $result['title'] = $value->title;
+            $result['category'] = Tasks::$categorys[$value->category];
             $result['content'] = $value->content;
             $result['time'] = $value->created_at;
             $result['user_id'] = $value->user_id;
-            $result['user_name'] = $user->name;
+            $result['user_name'] = $user->user_name;
             $result['head_image'] = $user->head_image;
             $results[] = $result;
         }
 
-        $re['list'] = $results;
-        $re['pageCount'] = ceil($count/$pageSize);
+        $list = $results;
 
-        return view('task.index')->with($re);
+        return view('task.index')->with(['list' => $list]);
     }
 
     public function detail(Request $request)
     {
         $id = $request->get('task_id');
-        
+        var_dump($id);exit;
+
     }
 }
