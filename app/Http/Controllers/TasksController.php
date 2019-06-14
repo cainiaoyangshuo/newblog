@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateTaskRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Routing\Controller;
 
 class TasksController extends Controller
 {
@@ -71,13 +73,16 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      *\App\Http\Requests\CreateArticleRequest
-     * @param  \App\Http\Requests\CreateTaskRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTaskRequest $request)
+    public function store(Request $request)
     {
+
         // 接受post方法
         $requestArray = $request->all();
+        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($requestArray))));
+        Log::info(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($requestArray))));
         // 有效天数，转化为时间戳
         if($requestArray['valid_at'] > 0){
             $date = date('Y-m-d H:i:s',time() + $requestArray['valid_at'] * 86400);

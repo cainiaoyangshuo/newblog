@@ -23,6 +23,7 @@ class CreateTaskRequest extends FormRequest
      */
     public function rules()
     {
+
         $rules = [
             'title' => 'required|min:3',
             'content' => 'required',
@@ -31,6 +32,7 @@ class CreateTaskRequest extends FormRequest
             'age' => 'required',
             'valid_at' => 'required',
         ];
+                        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($rules))));
         return $rules;
     }
 }

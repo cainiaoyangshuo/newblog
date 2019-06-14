@@ -72,13 +72,18 @@ Route::get('/article', 'ArticleController@index');
 //Route::get('/', function (){
 //    return View::make('index');
 //});
-Route::get('{slug}', 'ArticleController@show');
+// Route::get('{slug}', 'ArticleController@show');
 
 
 
 Route::get('/task', 'TasksController@index');
 Route::get('tasks/create', 'TasksController@create');
-Route::post('tasks', 'TasksController@store');
+// error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
+Route::post('/tasks/store', 'TasksController@store');
+// Route::get('/tasks/store',function(){
+//     error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
+//     // error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($_REQUEST))));
+// });
 
 Route::get('/user', 'UserController@index');
 
