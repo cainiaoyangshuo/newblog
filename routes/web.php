@@ -73,3 +73,7 @@ Route::get('/', function (){
     return View::make('index');
 });
 Route::get('{slug}', 'ArticleController@show');
+
+
+Route::get('/task', 'TasksController@index');
+
