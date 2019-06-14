@@ -28,6 +28,7 @@ class CreateTaskRequest extends FormRequest
             'content' => 'required',
             'category' => 'required|in:0,1,2,3,4,5',
             'sex' => 'required|in:0,1,2',
+            'age' => 'required',
             'min_age' => 'required',
             'max_age' => 'required',
             'valid_at' => 'required',
