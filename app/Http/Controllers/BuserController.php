@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Buser;
 use Illuminate\Http\Request;
 
 class BuserController extends Controller
@@ -12,9 +12,13 @@ class BuserController extends Controller
      *
      * @return redirect
      */
-    public function index()
+    public function index(Request $request)
     {
-	$userId = 2;
+	$userId = $request->get('userId');
+        if (!isset($userId)) {
+            return false;
+        }
+
 	$result =  Buser::getUserInfo($userId);
 	if(empty($result)){
 	   return false;
@@ -27,6 +31,6 @@ class BuserController extends Controller
 	$res['oftenAppear'] = '';
 	$res['age'] = '';
 	$res['id'] = $userId;
-	return view()>with($res);
+	return view('buxian.detail')>with(['list' => $list]);
     }
 }
