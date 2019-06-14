@@ -86,6 +86,7 @@ class TasksController extends BaseController
             $date = date('Y-m-d H:i:s',time() + $requestArray['valid_at'] * 86400);
             $requestArray['valid_at'] = Carbon::createFromFormat('Y-m-d H:i:s',$date);
         }
+        $requestArray['content'] = isset($requestArray['content']) ? $requestArray['content'] : '';
         $result = BuxianTasks::create(array_merge(array('user_id'=>1,'status'=>1), $requestArray));
         $jsonData = (isset($result['id']) && ($result['id'] > 0)) ? $this->returnJsonData($result['id']) : $this->returnJsonData('',1004,'插入失败');
         return $jsonData;
