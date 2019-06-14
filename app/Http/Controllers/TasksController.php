@@ -78,10 +78,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-
         // 接受post方法
+        $data = $request->getContent();
+        $data = json_decode($data);
+        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($data))));
         $requestArray = $request->all();
-        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($requestArray))));
+
         Log::info(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($requestArray))));
         // 有效天数，转化为时间戳
         if($requestArray['valid_at'] > 0){
@@ -101,10 +103,8 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-//        dd($id);
-        $article = Article::findOrFail($id);
-//        dd($article->published_at->year);
-        return view('articles.show',compact('article'));
+        $task = BuxianTasks::findOrFail($id);
+        return view('tasks.show',compact('task'));
     }
 
 

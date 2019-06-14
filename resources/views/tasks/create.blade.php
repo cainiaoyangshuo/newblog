@@ -19,6 +19,7 @@
     <div class="loading">
         <img src="/images/buxian/loading.gif" alt="">
     </div>
+    {{ csrf_field() }}
     <div class="labelBox">
         <img src="/images/buxian/arrow.png" class="goBack">
         <span class="label">编辑陪伴</span>
