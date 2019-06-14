@@ -30,7 +30,7 @@
     </div>
     <div class="labelBox">
         <span class="label">Home</span>
-        <a href="{{ route('publish') }}">
+        <a href="buxian.publish">
             <img src="/images/buxian/add.png" class="addBtn">
         </a>
     </div>
@@ -118,7 +118,7 @@
                 <img src="/images/buxian/avatar.jpg" class="avatar">
                 <span class="name">咸鱼不闲</span>
             </div>
-            <a class="divItem infoItem" href="{{ route('edit') }}">
+            <a class="divItem infoItem" href="buxian.editinfo">
                 <span>个人资料</span>
                 <img src="/images/buxian/info.png" alt="">
             </a>
