@@ -31,6 +31,6 @@ class BuserController extends Controller
 	$res['oftenAppear'] = '';
 	$res['age'] = '';
 	$res['id'] = $userId;
-	return view('buxian.detail')>with(['list' => $list]);
+	return view('buxian.detail')>with(['list' => $res]);
     }
 }
