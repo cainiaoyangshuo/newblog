@@ -125,6 +125,7 @@ $(function(){
         var content = $(".inputArea").val();
         var token=$("input[name=_token]").val();
 
+        
         $.ajax({
             "url": "/tasks/store",
             "dataType": "json",
