@@ -42,7 +42,7 @@ class WishController extends Controller
             $result['head_image'] = $user->head_image;
             $results[] = $result;
         }
-        return json_encode($result);
+        return json_encode($results);
     }
 
 }
