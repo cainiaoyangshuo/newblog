@@ -16,16 +16,16 @@ class TasksController extends Controller
      * return
      *
      */
-    public function index(Request $request)
+    public function index()
     {
 
-        $page = $request->get('page');
+        //$page = $request->get('page');
+        //
+        //if (!isset($page)) {
+        //    return false;
+        //}
 
-        if (!isset($page)) {
-            return false;
-        }
-        $pageSize = 10;
-        $list = Tasks::getTaskList(true, true, $page, $pageSize);
+        $list = Tasks::getTaskList();
 
         $results = [];
 
@@ -45,7 +45,7 @@ class TasksController extends Controller
 
         $list = $results;
 
-        return view('task.index')->with(['list' => $list]);
+        return view('buxian.index')->with(['list' => $list]);
     }
 
     public function detail(Request $request)

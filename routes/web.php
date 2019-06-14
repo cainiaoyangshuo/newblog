@@ -69,11 +69,22 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'admin']], funct
 
 // Article
 Route::get('/article', 'ArticleController@index');
-Route::get('/', function (){
-    return View::make('index');
-});
+//Route::get('/', function (){
+//    return View::make('index');
+//});
 Route::get('{slug}', 'ArticleController@show');
+
 
 
 Route::get('/task', 'TasksController@index');
 Route::get('/user', 'UserController@index');
+
+Route::get('/', 'TasksController@index');
+Route::get('/detail', 'TasksController@detail');
+
+Route::get('/publish', function (){
+    return View::make('buxian.publish');
+});
+Route::get('/edit', function (){
+    return View::make('buxian.editinfo');
+});
