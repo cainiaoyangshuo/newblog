@@ -13,15 +13,8 @@ class Buser extends Model
     {
 	$userId = trim($userId);
 	if (!empty($userId)) {
-            $result = DB::table(self::TABLE)->where('id',$userId)->get()->toArray();
-	    /*res['userName'] = $result->user_name;
-	    $res['imageUrl'] = $result->head_image;
-	    $res['WeChat'] = $result->weChat;
-	    $res['constellation'] = '';
-	    $res['oftenAppear'] = '';
-	    $res['age'] = '';
-	     */
-	    return $result[0];
+            $result = DB::table(self::TABLE)->where('id',$userId)->first();
+	    return $result;
         }
 
         return false;
