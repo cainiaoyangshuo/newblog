@@ -95,6 +95,7 @@ $(function(){
 
     function getWish(type){
         $(".loading").show();
+        $(".wishItem .listUl").html('');
             $.ajax({
                 "url": "/wish",
                 "dataType": "json",
