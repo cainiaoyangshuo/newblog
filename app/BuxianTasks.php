@@ -39,7 +39,7 @@ class BuxianTasks extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'content', 'category','sex','age','min_age','max_age','valid_at','status'
+        'user_id', 'title', 'content', 'category','sex','age','min_age','max_age','valid_at','status','is_delete'
     ];
 
 }

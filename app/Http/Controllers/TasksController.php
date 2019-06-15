@@ -75,7 +75,7 @@ class TasksController extends BaseController
     /**
      * Store a newly created resource in storage.
      *\App\Http\Requests\CreateArticleRequest
-     * @param  \App\Http\Requests\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -83,28 +83,59 @@ class TasksController extends BaseController
         // 接受post方法
         $requestArray = $request->all();
         // 有效天数，转化为时间戳
-        if(isset($requestArray['valid_at']) || $requestArray['valid_at'] > 0){
-            $date = date('Y-m-d H:i:s',time() + $requestArray['valid_at'] * 86400);
-            $requestArray['valid_at'] = Carbon::createFromFormat('Y-m-d H:i:s',$date);
+        if (isset($requestArray['valid_at']) || $requestArray['valid_at'] > 0) {
+            $date = date('Y-m-d H:i:s', time() + $requestArray['valid_at'] * 86400);
+            $requestArray['valid_at'] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
         }
         // 不传为空
         $requestArray['content'] = isset($requestArray['content']) ? $requestArray['content'] : '';
-        $result = BuxianTasks::create(array_merge(array('user_id'=>1,'status'=>1), $requestArray));
-        $jsonData = (isset($result['id']) && ($result['id'] > 0)) ? $this->returnJsonData($result['id']) : $this->returnJsonData('',1004,'插入失败');
+        $result = BuxianTasks::create(array_merge(array('user_id' => 1, 'status' => 1), $requestArray));
+        $jsonData = (isset($result['id']) && ($result['id'] > 0)) ? $this->returnJsonData($result['id']) : $this->returnJsonData('', 1004, '插入失败');
         return $jsonData;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $task = BuxianTasks::findOrFail($id);
-        return view('tasks.show',compact('task'));
+        return view('tasks.show', compact('task'));
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        try {
+            $task = BuxianTasks::findOrFail($id);
+            if (empty($task)) {
+                return $this->returnJsonData('', 1005, '任务不存在');
+            }
+            if ($task->is_delete == 1) {
+                return $this->returnJsonData('', 0, '成功');
+            }
+            $result = false;
+            if ($task->is_delete == 0) {
+                $result = $task->update(array(
+                    'is_delete' => 1,
+                    'updated_at' => time(),
+                ));
+            }
+            if (!$result) {
+                return $this->returnJsonData('', 1006, '删除失败');
+            }
+            return $this->returnJsonData('', 0, '成功');
+        } catch (\Exception $e) {
+            return $this->returnJsonData('', 1006, '删除失败');
+        }
+    }
 
 }

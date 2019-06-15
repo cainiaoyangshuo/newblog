@@ -80,6 +80,7 @@ Route::get('/task', 'TasksController@index');
 Route::get('tasks/create', 'TasksController@create');
 // error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
 Route::post('/tasks/store', 'TasksController@store');
+Route::get('/tasks/delete/{id}', 'TasksController@delete');
 // Route::get('/tasks/store',function(){
 //     error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
 //     // error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($_REQUEST))));
