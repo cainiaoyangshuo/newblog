@@ -85,7 +85,7 @@ $(function(){
     })
 
     //获取wish列表数据
-    getWish(1);
+    // getWish(1);
 
     //wish列表类型切换
     $(".wishItem .navBox li").click(function(){

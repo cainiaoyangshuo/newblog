@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/buxian/index.css?v=1545668898444" type="text/css">
     <script type="text/javascript" src="/js/buxian/jquery.min.js"></script>
     <script type="text/javascript" src="/js/buxian/common.js?v=1545668898444"></script>
-    <script type="text/javascript" src="/js/buxian/index.js?v=1545668898444"></script>
+    <!-- <script type="text/javascript" src="/js/buxian/index.js?v=1545668898444"></script> -->
 </head>
 <body>
 <div class="p_container editInfo">
@@ -64,6 +64,14 @@
     </div>
 
 </div>
+<script>
+    $(function(){
+        $(".goBack").click(function () {
+            history.go(-1);
+        })
+    })
+    
+</script>
 
 </body>
 </html>
