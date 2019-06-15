@@ -29,7 +29,9 @@ class BuserController extends Controller
 	$user = Auth::user();
         $res['name'] = $user['name'];
 	$res['avatar'] = $user['avatar'];
+
 	$list = $res;
 	return json_encode($list);
+
     }
 }

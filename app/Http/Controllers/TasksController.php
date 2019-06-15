@@ -56,7 +56,6 @@ class TasksController extends BaseController
         }
 
         $list = $results;
-
         return view('buxian.index')->with(['list' => $list]);
     }
 

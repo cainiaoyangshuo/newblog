@@ -78,7 +78,7 @@
         <div class="conItem meItem" data-index="3">
             <div class="divItem avatarItem">
                 <img src="/images/buxian/avatar.jpg" class="avatar">
-                <span class="name">咸鱼不闲</span>
+                <span class="name"></span>
             </div>
             <a class="divItem infoItem" href="/buser">
                 <span>个人资料</span>

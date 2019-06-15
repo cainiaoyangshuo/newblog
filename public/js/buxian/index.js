@@ -94,6 +94,7 @@ $(function(){
                 "success": function (response) {
                     $(".loading").hide();
                     if (response.errorCode == 0) {
+                        $(".mask").hide();
                         P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
                         setTimeout(function () {
                             location.href = "/";
@@ -117,11 +118,9 @@ $(function(){
                 "success": function (response) {
                     $(".loading").hide();
                     if (response.errorCode==0){
+                        $(".mask").hide();
                         P2PWAP.ui.toast('愿望删除成功！');
-                        setTimeout(function () {
-                            $(".mask").hide();
-                            getWish(1);
-                        }, 1);
+                        getWish(1);
                     }else{
                         P2PWAP.ui.toast(response.errorMsg);
                     }
@@ -135,6 +134,24 @@ $(function(){
 
     //获取wish列表数据
     getWish(1);
+
+    // 获取用户信息
+    $.ajax({
+        "url": "/userindex",
+        "type": "get",
+        "dataType": "json",
+        "data": {},
+        "success": function (response) {
+            $(".loading").hide();
+            if(response.avatar){
+                $(".meItem .avatarItem .avatar").attr("src",response.avatar);
+            }
+            $(".meItem .avatarItem .name").text(response.name);
+        },
+        "fail": function (msg) {
+            P2PWAP.ui.toast(msg);
+        }
+    })
 
     //wish列表类型切换
     $(".wishItem .navBox li").click(function(){
