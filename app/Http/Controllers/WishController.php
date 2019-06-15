@@ -119,18 +119,24 @@ class WishController extends BaseController
             Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 没有被领取")));
             return false;
         }
+        if(!in_array($user['id'],[$task['user_id'],$getTask['user_id']])){
+            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 用户非相关人士")));
+            return false;
+        }
+        $role = ($task['user_id'] == $user['id']) ? 1 : 2;
         $agreeUser = User::findOrFail($getTask['user_id'])->toArray();
         if(empty($agreeUser)){
             Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,"task id 为{$id} 领取用户不存在")));
             return false;
         }
+        $publishUser = User::findOrFail($task['user_id'])->toArray();
         $result = array(
-            'user' => $user,
+            'role' => $role,
+            'publishUser' => $publishUser,
             'task' => $task,
             'agreeUser' => $agreeUser,
         );
-        return $this->returnJsonData($result);
-//        return view('buxian.index')->with(['result' => $result]);
+        return view('buxian.detail')->with(['result' => $result]);
     }
 
 
