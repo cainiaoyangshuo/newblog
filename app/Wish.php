@@ -13,9 +13,10 @@ class Wish extends Model
 	    if(empty($userId)&&$type !== 1 && $type !== 2){
 		    return false;
 	    }
+
 	    $table = $type == 1 ? 'buxian_tasks' : 'buxian_get_task';
 
-	    $result = DB::table($table)->where('user_id',trim($userId))->get()->toArray();
+	    $result = DB::table($table)->where('user_id',trim($userId))->where('is_delete', 0)->get()->toArray();
 
 	    return $result;
     }

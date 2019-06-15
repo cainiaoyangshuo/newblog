@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 
 use App\Wish;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\BuxianTasks;
 use App\BuxianGetTask;
@@ -25,27 +26,27 @@ class WishController extends BaseController
     {
 	//1已发布 2已认领
         $type = $request->get('type');
-	$userId = $request->get('userId');
-        if (!isset($type) || !isset($userId)) {
-            return false;
-	}
+
+	    $user = Auth::user();
+	    $userId = Auth::id();
         $list = Wish::getWishList($userId,$type);
         $results = [];
         foreach ($list as $value) {
-	    if($type == 2){
-                $value=DB::table('buxian_tasks')->where('id',trim($value->task_id))->first();
-            }
-            $user = DB::table('buxian_user')->where('id', $value->user_id)->first();
-	    $result['id'] = $value->id;
+        //if($type == 2){
+        //        //$value=DB::table('buxian_tasks')->where('id',trim($value->task_id))->first();
+        //    }
+            //$user = DB::table('buxian_user')->where('id', $value->user_id)->first();
+            $result['id'] = $value->id;
             $result['title'] = $value->title;
             $result['content'] = $value->content;
             $result['time'] = $value->created_at;
-	    $result['user_id'] = $value->user_id;
-	    $result['status'] =  $value->status;
-            $result['user_name'] = $user->user_name;
-            $result['head_image'] = $user->head_image;
+            $result['user_id'] = $value->user_id;
+            $result['status'] =  $value->status;
+            $result['user_name'] = $user->name;
+            $result['head_image'] = $user->avatar;
             $results[] = $result;
         }
+        
         return json_encode($results);
     }
 
