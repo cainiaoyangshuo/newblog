@@ -92,6 +92,7 @@ Route::get('/', 'TasksController@index');
 Route::get('/detail', 'TasksController@detail');
 Route::get('/buser', 'BuserController@index');
 Route::get('/wish', 'WishController@index');
+Route::get('/userindex', 'BuserController@userIndex');
 Route::get('/wish/agree/{id}', 'WishController@agree');
 Route::get('/wish/detail/{id}', 'WishController@detail');
 Route::get('/publish', function (){
