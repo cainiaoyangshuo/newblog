@@ -50,7 +50,7 @@
                             <img src="/images/buxian/avatar.jpg" class="avatar">
                         @endif
                         <span class="name ellipsis">{{ $value['user_name'] }}</span>
-                        <span class="time">2分钟前</span>
+                        <span class="time">{{ $value['time'] }}</span>
                     </div>
                     <p class="type">#{{ $value['category'] }}#</p>
                     <div class="con">

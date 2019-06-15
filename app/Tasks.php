@@ -48,7 +48,7 @@ class Tasks extends Model
         //if ($count) {
         //    $coun = DB::table(self::TABLE)->count();
         //}
-        $result = DB::table(self::TABLE)->get()->toArray();
+        $result = DB::table(self::TABLE)->where('is_delete', 0)->orderByDesc('created_at')->get()->toArray();
         return $result;
     }
 
