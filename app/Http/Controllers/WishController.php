@@ -13,7 +13,6 @@ use App\BuxianTasks;
 use App\BuxianGetTask;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use PDO;
 
 class WishController extends BaseController
@@ -27,40 +26,22 @@ class WishController extends BaseController
      */
     public function index(Request $request)
     {
-	$user = Auth::user();    
 	//1已发布 2已认领
         $type = $request->get('type');
 
-	$user = Auth::user();
+	    $user = Auth::user();
     	$userId = Auth::id();
         $list = Wish::getWishList($userId,$type);
         $results = [];
 
         foreach ($list as $value) {
-        
-            $result['id'] = $value->id;
+
+	        $result['id'] = $value->id;
             $result['title'] = $value->title;
             $result['content'] = $value->content;
             $result['time'] = $value->created_at;
-            $result['user_id'] = $value->user_id;
+	        $result['user_id'] = $value->user_id;
             $result['status'] =  $value->status;
-            $result['user_name'] = $user->name;
-            $result['head_image'] = $user->avatar;
-        if (!isset($type)) {
-            return false;
-	}
-        $list = Wish::getWishList($userId,$type);
-        $results = [];
-        foreach ($list as $value) {
-	    if($type == 2){
-                $value=DB::table('buxian_tasks')->where('id',trim($value->task_id))->first();
-            }
-	    $result['id'] = $value->id;
-            $result['title'] = $value->title;
-            $result['content'] = $value->content;
-            $result['time'] = $value->created_at;
-	    $result['user_id'] = $value->user_id;
-	    $result['status'] =  $value->status;
             $result['user_name'] = $user['name'];
             $result['head_image'] = $user['avatar'];
             $results[] = $result;
@@ -120,11 +101,11 @@ class WishController extends BaseController
 	if (!isset($taskId)) {
             return false;
 	}
-	$value=DB:table('buxian_tasks')->where('id',trim($taskId))->where('user_id',trim($user['id']))->first();
+	$value=DB::table('buxian_tasks')->where('id',trim($taskId))->where('user_id',trim($user['id']))->first();
 	//如果为空，则为认领人点击
 	if(empty($value)){
 	   $get_userinfo=DB::table('users')->where('id', $value->user_id)->get()->toArray();
-	   $user = $get_userInfo;
+	   $user = $get_userinfo;
 	}else{
 	   //邀请人点击
 	   $info = DB::table('buxian_get_task')->where('task_id',trim($taskId))->first();
@@ -135,11 +116,11 @@ class WishController extends BaseController
 	$result['get_head_image'] = $get_userinfo['atavar'];
 	$result['status'] = $value->status;
 	$result['user_name'] = $user['name'];
-	$result['get_user_name'] = $get_userInfo['name'];
+	$result['get_user_name'] = $get_userinfo['name'];
 	$result['created_at'] =  $value->created_at;
-	$result['get_age'] = $get_userInfo['age'];
-	$result['get_cons'] = $get_userInfo['constellation'];
-	$result['get_wechat'] = $get_userInfo['WeChat'];
+	$result['get_age'] = $get_userinfo['age'];
+	$result['get_cons'] = $get_userinfo['constellation'];
+	$result['get_wechat'] = $get_userinfo['WeChat'];
  	$result['title'] = $value->title;
  	$result['content'] =  $value->content;
 	return json_encode($result);
