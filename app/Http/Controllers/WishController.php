@@ -109,26 +109,30 @@ class WishController extends BaseController
     {
         $user = Auth::user()->toArray();
         $taskId = intval($id);
-        if (empty($taskId)) {
-            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'task id 为空')));
-            return false;
-        }
-        $task = BuxianTasks::findOrFail($id)->toArray();
+//        if (empty($taskId)) {
+//            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'task id 为空')));
+//            return false;
+//        }
+        $task = BuxianTasks::findOrFail($taskId)->toArray();
         $getTask  = BuxianGetTask::query()->where('task_id','=', $task['id'])->first()->toArray();
-        if(empty($getTask) || $task['status'] == 1) {
-            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 没有被领取")));
-            return false;
-        }
-        if(!in_array($user['id'],[$task['user_id'],$getTask['user_id']])){
-            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 用户非相关人士")));
-            return false;
-        }
+//        if(empty($getTask) || $task['status'] == 1) {
+//            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 没有被领取")));
+//            return false;
+//        }
+//        if(!in_array($user['id'],[$task['user_id'],$getTask['user_id']])){
+//            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 用户非相关人士")));
+//            return false;
+//        }
         $role = ($task['user_id'] == $user['id']) ? 1 : 2;
-        $agreeUser = User::findOrFail($getTask['user_id'])->toArray();
-        if(empty($agreeUser)){
-            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,"task id 为{$id} 领取用户不存在")));
-            return false;
+        $agreeUser = array();
+        if(!empty($getTask['user_id'])){
+            $agreeUser = User::findOrFail($getTask['user_id'])->toArray();
         }
+
+//        if(empty($agreeUser)){
+//            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,"task id 为{$id} 领取用户不存在")));
+//            return false;
+//        }
         $publishUser = User::findOrFail($task['user_id'])->toArray();
         $result = array(
             'role' => $role,
