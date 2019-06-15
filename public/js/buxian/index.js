@@ -47,7 +47,7 @@ $(function(){
 
     $(".squareItem .listUl li").each(function () {
         var height = $(this).find(".con h3").height();
-        if (height>51){
+        if (height>60){
             $(this).find(".seeMore").show();
             $(this).find(".con").css("height","0.6rem");
         }else{

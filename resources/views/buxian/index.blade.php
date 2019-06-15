@@ -58,7 +58,7 @@
                         <h3>{{ $value['content'] }}</h3>
                     </div>
                     <div class="seeMore">查看全文</div>
-                    <div class="seeNum"><img src="/images/buxian/eye.png"><span class="num">222</span></div>
+                    <div class="seeNum"><img src="/images/buxian/eye.png"><span class="num">{{ $value['pv'] }}</span></div>
                 </li>
                 @endforeach
             </ul>
