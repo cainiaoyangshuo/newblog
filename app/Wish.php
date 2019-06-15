@@ -19,12 +19,13 @@ class Wish extends Model
 	    if ($type == 1) {
             $result = DB::table('buxian_tasks')->where('user_id',trim($userId))->where('is_delete', 0)->orderByDesc('created_at')->get()->toArray();
         } else {
-	        $result = DB::table('buxian_tasks')
-                ->join('buxian_get_task', 'buxian_get_task.task_id','=', 'buxian_tasks.id')
-	            ->where('buxian_get_task.user_id', $userId)
-                ->orderByDesc('buxian_get_task.created_at')
-                ->get()
-                ->toArray();
+	        //$result = DB::table('buxian_tasks')
+             //  ->join('buxian_get_task', 'buxian_get_task.task_id','=', 'buxian_tasks.id')
+             //   ->where('buxian_get_task.user_id', $userId)
+             //  ->orderByDesc('buxian_get_task.created_at')
+             //  ->get()
+             //  ->toArray();
+            $result = DB::select("SELECT t.* FROM buxian_get_task AS gt INNER JOIN buxian_tasks AS t ON  gt.task_id = t.id WHERE gt.user_id = {$userId} ORDER BY t.id  DESC ;");
         }
 
 	    return $result;

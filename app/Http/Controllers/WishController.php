@@ -42,8 +42,10 @@ class WishController extends BaseController
             $result['time'] = $value->created_at;
             $result['user_id'] = $value->user_id;
             $result['status'] =  $value->status;
-            $result['user_name'] = $user['name'];
-            $result['head_image'] = $user['avatar'];
+
+            $userInfo = DB::table('users')->where('id', $value->user_id)->first();
+            $result['user_name'] = $userInfo->name;
+            $result['head_image'] = $userInfo->avatar;
             $results[] = $result;
         }
 
