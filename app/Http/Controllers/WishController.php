@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\BuxianTasks;
 use App\BuxianGetTask;
+use App\User;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Log;
-use PDO;
 
 class WishController extends BaseController
 {
-	
+
 
     /**
      * 任务列表
@@ -26,21 +26,21 @@ class WishController extends BaseController
      */
     public function index(Request $request)
     {
-	//1已发布 2已认领
+        //1已发布 2已认领
         $type = $request->get('type');
 
-	    $user = Auth::user();
-    	$userId = Auth::id();
+        $user = Auth::user();
+        $userId = Auth::id();
         $list = Wish::getWishList($userId,$type);
         $results = [];
 
         foreach ($list as $value) {
 
-	        $result['id'] = $value->id;
+            $result['id'] = $value->id;
             $result['title'] = $value->title;
             $result['content'] = $value->content;
             $result['time'] = $value->created_at;
-	        $result['user_id'] = $value->user_id;
+            $result['user_id'] = $value->user_id;
             $result['status'] =  $value->status;
             $result['user_name'] = $user['name'];
             $result['head_image'] = $user['avatar'];
@@ -51,79 +51,86 @@ class WishController extends BaseController
         return json_encode($results);
     }
 
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id task id
+     * @param  int $id task id
      * @return \Illuminate\Http\Response
      */
     public function agree($id)
     {
-        error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'参数：'.$id)));
+        error_log(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, '参数：' . $id)));
         $dbStart = false;
-        try{
+        try {
             $task = BuxianTasks::findOrFail($id);
-            if(empty($task)){
-                return $this->returnJsonData('',1005,'任务不存在');
+            if (empty($task)) {
+                return $this->returnJsonData('', 1005, '任务不存在');
+            }
+            if ($task->status == 2) {
+                return $this->returnJsonData('', 1008, '该任务已被领取');
+            }
+            if ($task->status == 3) {
+                return $this->returnJsonData('', 1009, '该任务已结束');
+            }
+            $userId = Auth::id();
+            if (empty($userId)) {
+                return $this->returnJsonData('', 1007, '用户未登录');
             }
             DB::beginTransaction();
             $dbStart = true;
             $task->update(array(
-                'status'=>2,
-                'updated_at'=>time(),
+                'status' => 2,
+                'updated_at' => time(),
             ));
-            error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'参数：'.$id)));
-            $insertResult =  BuxianGetTask::create(array(
+            $insertResult = BuxianGetTask::create(array(
                 'task_id' => $id,
-                'user_id' => 2,
+                'user_id' => $userId,
             ));
-            error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'参数：'.$id)));
-            if(!$insertResult){
+            if (!$insertResult) {
                 throw new \Exception('认领失败');
             }
-            error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'参数：'.$id)));
             DB::commit();
-            return $this->returnJsonData('',0,'');
-        }catch(\Exception $e){
-            error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'参数：'.$id,$e->getMessage())));
+            return $this->returnJsonData('', 0, '');
+        } catch (\Exception $e) {
+            error_log(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, '参数：' . $id, $e->getMessage())));
             $dbStart && DB::rollback();
-            return $this->returnJsonData('',1006,'认领失败');
+            return $this->returnJsonData('', 1006, '认领失败');
         }
     }
 
-    public function detail(Request $request){
-	$user = Auth::user();    
-	DB::setFetchMode(PDO::FETCH_ASSOC);
-	$user = DB::table('users')->where('id', 600032)->get()->toArray();    
-	$taskId = 1; 
-		//$request->get('taskId');
-        
-	if (!isset($taskId)) {
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id task id
+     * @return \Illuminate\Http\Response
+     */
+    public function detail($id)
+    {
+        $user = Auth::user()->toArray();
+        $taskId = intval($id);
+        if (empty($taskId)) {
+            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'task id 为空')));
             return false;
-	}
-	$value=DB::table('buxian_tasks')->where('id',trim($taskId))->where('user_id',trim($user['id']))->first();
-	//如果为空，则为认领人点击
-	if(empty($value)){
-	   $get_userinfo=DB::table('users')->where('id', $value->user_id)->get()->toArray();
-	   $user = $get_userinfo;
-	}else{
-	   //邀请人点击
-	   $info = DB::table('buxian_get_task')->where('task_id',trim($taskId))->first();
-	   $get_userinfo=DB::table('users')->where('id', $info->user_id)->get()->toArray();
-	}
-	//get指神秘人信息	
-	$result['head_image'] = $user['atavar'];
-	$result['get_head_image'] = $get_userinfo['atavar'];
-	$result['status'] = $value->status;
-	$result['user_name'] = $user['name'];
-	$result['get_user_name'] = $get_userinfo['name'];
-	$result['created_at'] =  $value->created_at;
-	$result['get_age'] = $get_userinfo['age'];
-	$result['get_cons'] = $get_userinfo['constellation'];
-	$result['get_wechat'] = $get_userinfo['WeChat'];
- 	$result['title'] = $value->title;
- 	$result['content'] =  $value->content;
-	return json_encode($result);
+        }
+        $task = BuxianTasks::findOrFail($id)->toArray();
+        $getTask  = BuxianGetTask::query()->where('task_id','=', $task['id'])->first()->toArray();
+        if(empty($getTask) || $task['status'] == 1) {
+            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 没有被领取")));
+            return false;
+        }
+        $agreeUser = User::findOrFail($getTask['user_id'])->toArray();
+        if(empty($agreeUser)){
+            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,"task id 为{$id} 领取用户不存在")));
+            return false;
+        }
+        $result = array(
+            'user' => $user,
+            'task' => $task,
+            'agreeUser' => $agreeUser,
+        );
+        return $this->returnJsonData($result);
+//        return view('buxian.index')->with(['result' => $result]);
     }
 
 

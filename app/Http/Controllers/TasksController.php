@@ -92,7 +92,10 @@ class TasksController extends BaseController
         }
         // 不传为空
         $requestArray['content'] = isset($requestArray['content']) ? $requestArray['content'] : '';
-        $result = BuxianTasks::create(array_merge(array('user_id' => 1, 'status' => 1), $requestArray));
+        // 简单点
+        $user = Auth::user();
+        $userId = isset($user->id) ? $user->id : 0;
+        $result = BuxianTasks::create(array_merge(array('user_id' => $userId, 'status' => 1), $requestArray));
         $jsonData = (isset($result['id']) && ($result['id'] > 0)) ? $this->returnJsonData($result['id']) : $this->returnJsonData('', 1004, '插入失败');
         return $jsonData;
     }
