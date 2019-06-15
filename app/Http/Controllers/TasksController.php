@@ -51,7 +51,7 @@ class TasksController extends BaseController
             $result['head_image']   = $user->avatar;
             $result['self']         = $value->user_id == $userId ? 1 : 2;
             $result['status']       = $value->status;
-
+            $result['pv']           = $value->page_views;
             $results[] = $result;
         }
 
