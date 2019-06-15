@@ -33,7 +33,7 @@ class TasksController extends BaseController
         //}
 
         $list = Tasks::getTaskList();
-
+        $userId = Auth::id();
         $results = [];
 
         foreach ($list as $value) {
@@ -49,6 +49,7 @@ class TasksController extends BaseController
             $result['user_id'] = $value->user_id;
             $result['user_name'] = $user->name;
             $result['head_image'] = $user->avatar;
+            $result['self'] = $value->user_id == $userId ? 1 : 2;
 
             $results[] = $result;
         }
