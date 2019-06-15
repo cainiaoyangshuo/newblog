@@ -136,10 +136,14 @@ $(function(){
             },
             "success": function (response) {
               $(".loading").hide();
-              P2PWAP.ui.toast('愿望发布成功');
-              setTimeout(function () {
-                  location.href = "/";
-              }, 1);
+              if (response.errorCode == 0) {
+                  P2PWAP.ui.toast('愿望发布成功');
+                  setTimeout(function () {
+                      location.href = "/";
+                  }, 1);
+              } else {
+                  P2PWAP.ui.toast(response.errorMsg);
+              }
             },
             "fail": function (msg) {
                   P2PWAP.ui.toast(msg);

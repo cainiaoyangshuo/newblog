@@ -389,6 +389,10 @@
 .detail .listBox{
     margin-top: 0;
 }
+.detail .labelBox .label {
+    text-align: left;
+    padding-left: 0.26rem;
+}
 .detail .listUl .con{
     height: auto;
 }

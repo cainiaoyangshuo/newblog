@@ -39,7 +39,6 @@
             <ul class="listUl">
                 @foreach($list as $value)
                 <li>
-                    <!-- <img src="/images/buxian/buxian/more.png" class="moreBtn"> -->
                     <p class="getBtn" data-id="{{ $value['id'] }}">
                         领走心愿
                     </p>

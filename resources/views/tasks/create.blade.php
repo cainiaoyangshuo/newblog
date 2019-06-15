@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>编辑资料</title>
+    <title>编辑心愿</title>
     <link rel="stylesheet" href="/css/buxian/base.css" type="text/css">
     <link rel="stylesheet" href="/css/buxian/common.css" type="text/css">
     <link rel="stylesheet" href="/css/buxian/select.css" type="text/css">

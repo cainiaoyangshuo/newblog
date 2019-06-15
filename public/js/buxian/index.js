@@ -67,13 +67,18 @@ $(function(){
             $.ajax({
                 "url": "/wish/agree/" + taskId,
                 "type": "get",
+                "dataType": "json",
                 "data": {},
                 "success": function (response) {
                     $(".loading").hide();
-                    P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
-                    setTimeout(function () {
-                        location.href = "/";
-                    }, 1);
+                    if (response.errorCode == 0) {
+                        P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
+                        setTimeout(function () {
+                            location.href = "/";
+                        }, 1);
+                    } else {
+                        P2PWAP.ui.toast(response.errorMsg);
+                    }
                 },
                 "fail": function (msg) {
                     P2PWAP.ui.toast(msg);
@@ -85,15 +90,17 @@ $(function(){
             $.ajax({
                 "url": "/tasks/delete/" + taskId,
                 "type": "get",
+                "dataType": "json",
                 "data": {},
                 "success": function (response) {
                     $(".loading").hide();
-                    if (response.errorCode == 0) {
+                    if (response.errorCode==0){
                         P2PWAP.ui.toast('愿望删除成功！');
                         setTimeout(function () {
+                            $(".mask").hide();
                             getWish(1);
                         }, 1);
-                    } else {
+                    }else{
                         P2PWAP.ui.toast(response.errorMsg);
                     }
                 },
@@ -129,15 +136,15 @@ $(function(){
                         var list = response;
                         var $lis='';
                         $.each(list,function(index,item){
-                            if(item.status=="0"){//待领取
+                            if(item.status=="1"){//待领取
                                 $lis += '<li class="waitGet" data-id="'+item.id+'">';
-                            } else if (item.status == "1"){//已领取
+                            } else if (item.status == "2"){//已领取
                                 $lis += '<li class="alreadyGet" data-id="' + item.id + '">';
                             }else{//已结束
                                 $lis += '<li class="finish" data-id="' + item.id + '">';
                             }
                             item.head_image = item.head_image ? item.head_image : "/images/buxian/avatar.jpg";
-                            var $status = item.status == 0 ? '待领取' : item.status == 1 ? '已领取' : '已结束';
+                            var $status = item.status == 1 ? '待领取' : item.status == 2 ? '已领取' : '已结束';
                             $lis+='<div class="top">' +
                                         '<img src="'+item.head_image+'" class="avatar">' +
                                         '<span class="name ellipsis">' + item.user_name + '</span>' +
@@ -147,9 +154,9 @@ $(function(){
                                         '<h3>' + item.content + '</h3>' +
                                     '</div>' +
                                     '<p class="status">' + $status + '</p>' ;
-                            if(item.status==0){
+                            if(item.status==1){
                                 $lis += '<p class="deleteBtn">删除</p>';
-                            }else if(item.status==1){
+                            }else if(item.status==2){
                                 $lis += '<p class = "mysteryInfo"> 神秘人信息 </p>';
                             }
                             $lis += '</li>';
@@ -173,15 +180,14 @@ $(function(){
         $(this).addClass("active");
     })
 
-    
-
     // wish列表跳详情
-    $(".wishItem .listUl li").click(function(){
-        location.href="detail.html";
+    $(".wishItem .listUl").on("click","li",function(){
+        var taskId=$(this).attr("data-id");
+        location.href = " /wish/detail/" + taskId;
     })
     // wish列表点击删除
-    $(".deleteBtn").click(function(e){
-        var taskId=$(this).parents("li").attr("data-id");
+    $(".wishItem .listUl").on("click",".deleteBtn", function (e) {
+        var taskId = $(this).parents("li").attr("data-id");
         e.stopPropagation();
         $(".mask").show();
         $(".btnRight").addClass("delSure").attr("taskId", taskId);

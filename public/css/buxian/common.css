@@ -49,7 +49,7 @@
     top: 0.15rem;
     width: 0.2rem;
     height: 0.2rem;
-    display: none;
+    /* display: none; */
 }
 .labelBox .goBack{
     width: 0.18rem;
