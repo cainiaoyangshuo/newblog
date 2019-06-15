@@ -30,6 +30,6 @@ class BuserController extends Controller
         $res['name'] = $user['name'];
 	$res['avatar'] = $user['avatar'];
 	$list = $res;
-	return view('buxian.index')->with(['list' => $list]);
+	return json_encode($list);
     }
 }
