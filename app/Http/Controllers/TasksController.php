@@ -9,6 +9,7 @@ use App\Tasks;
 use App\BuxianTasks;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateTaskRequest;
 use Illuminate\Support\Facades\Log;
