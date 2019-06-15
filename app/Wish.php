@@ -21,7 +21,7 @@ class Wish extends Model
         } else {
 	        $result = DB::table('buxian_get_task')
                 ->join('buxian_tasks', 'buxian_get_task.task_id','=', 'buxian_tasks.id')
-	            ->where('buxian_tasks.user_id', $userId)
+	            ->where('buxian_get_task.user_id', $userId)
                 ->orderByDesc('buxian_get_task.created_at')
                 ->get()
                 ->toArray();
