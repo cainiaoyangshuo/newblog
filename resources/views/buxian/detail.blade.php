@@ -47,7 +47,7 @@
                         
                     </li>
                 </ul>
-                @if(!empty($result['agreeUser'])
+                @if(!empty($result['agreeUser']))
                 <div class="mysteryItem">
                     <img src="/images/buxian/avatar.jpg" class="avatar">
                     <span class="tip">以下是关于你的神秘人信息哦~</span>

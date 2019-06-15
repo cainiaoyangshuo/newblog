@@ -61,8 +61,10 @@ $(function(){
         var height=$(this).parents("li").find(".con h3").height();
         if($(this).hasClass("active")){
             $(this).parents("li").find(".con").css("height", height);
+            $(this).text("收起全文");
         }else{
             $(this).parents("li").find(".con").css("height", "0.6rem");
+            $(this).text("查看全文");
         }
     })
 
