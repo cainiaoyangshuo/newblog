@@ -40,6 +40,8 @@ $(function(){
             getWish(1);
         }else if(index==3){//个人资料
             $(".conBox").css("height", "100%");
+        }else if(index==0){//广场
+            location.href="/";
         }
     })
 
