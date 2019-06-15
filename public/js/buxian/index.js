@@ -4,6 +4,19 @@ $(function(){
     var wishHeight = squareHeight - $(".navBox").height();
     $(".wishItem .listBox").css("height", wishHeight + "px");
 
+    var from = getQueryString("form");
+    if(from=="detail"){//从详情页返回，wish处于active
+        $(".conItem").hide();
+        $(".tabBox li").removeClass("active");
+        $(".tabBox li.wish").addClass("active");
+        $(".wishItem").show();
+    } else if (from == "info") { //从资料页返回，me处于active
+        $(".conItem").hide();
+        $(".tabBox li").removeClass("active");
+        $(".tabBox li.me").addClass("active");
+        $(".meItem").show();
+    }
+
     $(".tabBox li").click(function(){
         $(this).siblings().removeClass("active");
         $(this).addClass("active");
@@ -22,6 +35,8 @@ $(function(){
             getWish(1);
         }else if(index==3){//个人资料
             $(".conBox").css("height", "100%");
+        }else if(index==0){//广场
+            location.reload();
         }
     })
 

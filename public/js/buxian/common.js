@@ -72,5 +72,13 @@ P2PWAP.ui.ErrorToaster_.prototype.dispose = function () {
     this.hide();
 };
 
+// 获取地址栏某个参数
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
+}
+
 
 
