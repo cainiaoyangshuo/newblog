@@ -47,9 +47,13 @@
                         
                     </li>
                 </ul>
-                @if(!empty($result['agreeUser']))
+                @if($result['role']==1&&!empty($result['agreeUser']))
                 <div class="mysteryItem">
-                    <img src="/images/buxian/avatar.jpg" class="avatar">
+                    @if(!empty($result['agreeUser']['avatar']))
+                        <img src="{{ $result['agreeUser']['avatar'] }}" class="avatar">
+                    @else
+                        <img src="/images/buxian/avatar.jpg" class="avatar">
+                    @endif
                     <span class="tip">以下是关于你的神秘人信息哦~</span>
                     <div class="nameBox divItem">
                         <span class="name">{{$result['agreeUser']['name']}}</span>
@@ -64,6 +68,29 @@
                     @endif
                     <span class="tip">请保存好信息不要告诉别人哦~期待你们的相遇</span>
                 </div>
+                @endif
+
+                @if($result['role']==2)
+                    <div class="mysteryItem">
+                        @if(!empty($result['publishUser']['avatar']))
+                            <img src="{{ $result['publishUser']['avatar'] }}" class="avatar">
+                        @else
+                            <img src="/images/buxian/avatar.jpg" class="avatar">
+                        @endif
+                        <span class="tip">以下是关于你的神秘人信息哦~</span>
+                        <div class="nameBox divItem">
+                            <span class="name">{{$result['publishUser']['name']}}</span>
+                            <img src="/images/buxian/man.png" class="sexImg">
+                        </div>
+                        <div class="divItem labelItem">
+                            <p>{{$result['publishUser']['age']}}岁</p>
+                            <p>{{$result['publishUser']['constellation']}}</p>
+                        </div>
+                        @if($result['role']==1)
+                        <span class="tip"><span style="font-weight:bold;">Wechat:</span>{{$result['publishUser']['WeChat']}}</span>
+                        @endif
+                        <span class="tip">请保存好信息不要告诉别人哦~期待你们的相遇</span>
+                    </div>
                 @endif
             </div>
         </div>
