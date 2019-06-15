@@ -46,7 +46,7 @@ class TasksController extends BaseController
             $result['time'] = $value->created_at;
             $result['user_id'] = $value->user_id;
             $result['user_name'] = $user->name;
-            $result['head_image'] = $user->head_image;
+            $result['head_image'] = $user->avatar;
             $results[] = $result;
         }
 
