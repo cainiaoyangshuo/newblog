@@ -92,7 +92,7 @@ class TasksController extends BaseController
             $requestArray['valid_at'] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
         }
         // 不传为空
-        $requestArray['content'] = isset($requestArray['content']) ? $requestArray['content'] : '';
+        $requestArray['content'] = isset($requestArray['content']) ? trim($requestArray['content']) : '';
         // 简单点
         $user = Auth::user();
         $userId = isset($user->id) ? $user->id : 0;
