@@ -40,9 +40,7 @@ $(function(){
           }],
       position: [2], //初始化定位
       callback: function (indexArr, data) {
-        console.log(data); //返回选中的json数据
         $("#typeSelect").attr("data-id", data[0].id);
-        $("#typeSelect").parents(".editItem").find("input").val(data[0].id)
       }
     });
     var sexSelect = new MobileSelect({
@@ -65,7 +63,6 @@ $(function(){
       }],
       position: [2], //初始化定位
       callback: function (indexArr, data) {
-        console.log(data); //返回选中的json数据
         $("#sexSelect").attr("data-id", data[0].id);
       }
     });
@@ -89,7 +86,6 @@ $(function(){
       }],
       position: [2], //初始化定位
       callback: function (indexArr, data) {
-        console.log(data); //返回选中的json数据
         $("#ageSelect").attr("data-id", data[0].id);
       }
     });
@@ -113,14 +109,10 @@ $(function(){
       }],
       position: [2], //初始化定位
       callback: function (indexArr, data) {
-        console.log(data); //返回选中的json数据
         $("#daySelect").attr("data-id", data[0].id);
       }
     });
 
-    var url = $("#url").val();
-    console.log(url)
-    console.log($("#url"))
     // 发布
     $(".publishBtn").click(function(){
         var sex = $("#sexSelect").attr("data-id");
@@ -129,8 +121,7 @@ $(function(){
         var valid_at = $("#daySelect").attr("data-id");
         var content = $(".inputArea").val();
         var token=$("input[name=_token]").val();
-
-
+        $(".loading").show();
         $.ajax({
             "url": "/tasks/store",
             "dataType": "json",
@@ -144,10 +135,18 @@ $(function(){
                 _token: token
             },
             "success": function (response) {
-                location.href="/";
+              $(".loading").hide();
+              if(response.errorCode==0){
+                  P2PWAP.ui.toast('愿望发布成功');
+                  setTimeout(function () {
+                    location.href = "/";
+                  }, 1);
+              }else{
+                  P2PWAP.ui.toast(errorMsg);
+              }
             },
             "fail": function (msg) {
-                P2PWAP.ui.toast(msg);
+                  P2PWAP.ui.toast(msg);
             }
         })
     })

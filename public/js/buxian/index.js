@@ -48,9 +48,40 @@ $(function(){
     $(".getBtn").click(function (e) {
         e.stopPropagation();
         $(".mask").show();
-        $(".btnRight").addClass("getSure");
+        var taskId=$(this).attr("data-id");
+        $(".btnRight").addClass("getSure").attr("taskId", taskId);
         $(".maskCon .tipTop").text("确认认领愿望吗？");
         $(".maskCon .tipBottom").text("认领后将会把你的个人信息告知邀请人！");
+    })
+
+    $(".maskCon").click(function(e){
+        e.stopPropagation();
+    })
+
+    $(".btnRight").click(function(){
+        if ($(this).hasClass("getSure")) {// 确认领走愿望
+            var taskId = $(this).attr("taskId");
+            $(".loading").show();
+            $.ajax({
+                "url": "/wish/agree/" + taskId,
+                "type": "get",
+                "data": {},
+                "success": function (response) {
+                    $(".loading").hide();
+                    if(response.errorCode==0){
+                        P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
+                        setTimeout(function () {
+                            location.href = "/";
+                        }, 1);
+                    }else{
+                        P2PWAP.ui.toast(response.errorMsg);
+                    }
+                },
+                "fail": function (msg) {
+                    P2PWAP.ui.toast(msg);
+                }
+            })
+        }
     })
 
     //获取wish列表数据
@@ -69,8 +100,7 @@ $(function(){
                 "dataType": "json",
                 "type": "get",
                 "data": {
-                    type: type,
-                    userId:600032
+                    type: type
                 },
                 "success": function (response) {
                     $(".loading").hide();

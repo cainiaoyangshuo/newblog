@@ -18,6 +18,7 @@
         <img src="/images/buxian/loading.gif" alt="">
     </div>
     <div class="labelBox">
+        <img src="/images/buxian/arrow.png" class="goBack">
         <span class="label">编辑资料</span>
     </div>
     <div class="conBox">

@@ -40,8 +40,8 @@
                 @foreach($list as $value)
                 <li>
                     <!-- <img src="/images/buxian/buxian/more.png" class="moreBtn"> -->
-                    <p class="getBtn">
-                        领走愿望
+                    <p class="getBtn" data-id="{{ $value['id'] }}">
+                        领走心愿
                     </p>
                     <div class="top">
                         @if(!empty($value['head_image']))
@@ -95,10 +95,10 @@
         </div>
     </div>
     <ul class="tabBox">
-        <li class="square active" data-index="0">Home</li>
-        <li class="wish" data-index="1">Wish</li>
-        <li class="msg" data-index="2">Message</li>
-        <li class="me" data-index="3">Me</li>
+        <li class="square active" data-index="0">广场</li>
+        <li class="wish" data-index="1">心愿单</li>
+        <!-- <li class="msg" data-index="2">Message</li> -->
+        <li class="me" data-index="3">我的</li>
     </ul>
 </div>
 </body>

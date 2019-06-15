@@ -37,7 +37,7 @@ P2PWAP.ui.ErrorToaster_ = function (msgHtml) {
 P2PWAP.ui.ErrorToaster_.prototype.createDom = function () {
     this.ele = document.createElement("div");
     this.ele.innerHTML = "<span style=\"display: inline-block;color:white;max-width:250px;min-width:100px;font-size:14px;word-break:break-word;padding:10px;background:rgba(0,0,0,0.6);border-radius:5px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%);\">" + this.msgHtml + "</span>";
-    this.ele.setAttribute("style", "z-index:1002;position:fixed;width:100%;height:100%;text-align:center;top:0;left:0;-webkit-transition:opacity linear 0.5s;opacity:0;");
+    this.ele.setAttribute("style", "z-index:20000;position:fixed;width:100%;height:100%;text-align:center;top:0;left:0;-webkit-transition:opacity linear 0.5s;opacity:0;");
     document.body.appendChild(this.ele);
 };
 

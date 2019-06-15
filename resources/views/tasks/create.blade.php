@@ -22,13 +22,13 @@
     {{ csrf_field() }}
     <div class="labelBox">
         <img src="/images/buxian/arrow.png" class="goBack">
-        <span class="label">编辑陪伴</span>
+        <span class="label">编辑心愿</span>
         <a class="publishBtn" href="javascript:void(0)">发布</a>
     </div>
     <div class="conBox">
        
             <div class="editItem">
-                <span class="label">陪伴类型</span>
+                <span class="label">心愿类型</span>
                 <span class="labelCon" id="typeSelect">请选择</span>
                 <img src="/images/buxian/arrow.png" class="arrow">
             </div>
@@ -43,14 +43,17 @@
                 <img src="/images/buxian/arrow.png" class="arrow">
             </div>
             <div class="editItem">
-                <span class="label">陪伴发布有效期</span>
+                <span class="label">心愿发布有效期</span>
                 <span class="labelCon" id="daySelect" data-id="2">7天</span>
                 <img src="/images/buxian/arrow.png" class="arrow">
             </div>
             <div class="editAreaBox">
-                <span class="label">陪伴内容</span>
+                <span class="label">心愿内容</span>
                 <div class="editArea">
-                    <textarea maxlength="200" class="inputArea"></textarea>
+                    <textarea maxlength="200" class="inputArea" placeholder="可被实现的，禁止黄暴
+有趣的走心的心愿，更容易被领走哦～
+例如：
+求可以陪我一起去看复仇者联盟的伙伴"></textarea>
                     <div class="numBox">
                         <span class="num">0</span>
                         <span>/</span>
