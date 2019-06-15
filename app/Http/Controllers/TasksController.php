@@ -38,14 +38,14 @@ class TasksController extends BaseController
 
         foreach ($list as $value) {
 
-            $user = DB::table('buxian_user')->where('id', $value->user_id)->first();
+            $user = DB::table('users')->where('id', $value->user_id)->first();
 
             $result['id'] = $value->id;
             $result['category'] = Tasks::$categorys[$value->category];
             $result['content'] = $value->content;
             $result['time'] = $value->created_at;
             $result['user_id'] = $value->user_id;
-            $result['user_name'] = $user->user_name;
+            $result['user_name'] = $user->name;
             $result['head_image'] = $user->head_image;
             $results[] = $result;
         }
