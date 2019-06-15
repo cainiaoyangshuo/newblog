@@ -40,8 +40,6 @@ $(function(){
             getWish(1);
         }else if(index==3){//个人资料
             $(".conBox").css("height", "100%");
-        }else if(index==0){//广场
-            location.href="/";
         }
     })
 
@@ -61,8 +59,10 @@ $(function(){
         var height=$(this).parents("li").find(".con h3").height();
         if($(this).hasClass("active")){
             $(this).parents("li").find(".con").css("height", height);
+            $(this).text("收起全文");
         }else{
             $(this).parents("li").find(".con").css("height", "0.6rem");
+            $(this).text("查看全文");
         }
     })
 
