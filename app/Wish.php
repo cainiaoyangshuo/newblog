@@ -17,7 +17,7 @@ class Wish extends Model
 	    //$table = $type == 1 ? 'buxian_tasks' : 'buxian_get_task';
 
 	    if ($type == 1) {
-            $result = DB::table('buxian_tasks')->where('user_id',trim($userId))->where('is_delete', 0)->get()->toArray();
+            $result = DB::table('buxian_tasks')->where('user_id',trim($userId))->where('is_delete', 0)->orderByDesc('created_at')->get()->toArray();
         } else {
 	        $result = DB::table('buxian_get_task')
                 ->join('buxian_tasks', 'buxian_get_task.task_id','=', 'buxian_tasks.id')
