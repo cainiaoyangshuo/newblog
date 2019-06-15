@@ -35,11 +35,9 @@ class WishController extends BaseController
     	$userId = Auth::id();
         $list = Wish::getWishList($userId,$type);
         $results = [];
+
         foreach ($list as $value) {
-        //if($type == 2){
-        //        //$value=DB::table('buxian_tasks')->where('id',trim($value->task_id))->first();
-        //    }
-            //$user = DB::table('buxian_user')->where('id', $value->user_id)->first();
+        
             $result['id'] = $value->id;
             $result['title'] = $value->title;
             $result['content'] = $value->content;
@@ -67,7 +65,8 @@ class WishController extends BaseController
             $result['head_image'] = $user['avatar'];
             $results[] = $result;
         }
-        
+
+
         return json_encode($results);
     }
 
