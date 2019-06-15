@@ -39,9 +39,11 @@
             <ul class="listUl">
                 @foreach($list as $value)
                 <li>
+                    @if($value['self']==2 && $value['status']!=2)
                     <p class="getBtn" data-id="{{ $value['id'] }}">
                         领走心愿
                     </p>
+                    @endif
                     <div class="top">
                         @if(!empty($value['head_image']))
                             <img src="{{ $value['head_image'] }}" class="avatar">
@@ -53,11 +55,10 @@
                     </div>
                     <p class="type">#{{ $value['category'] }}#</p>
                     <div class="con">
-                        <h3> {{ $value['content'] }}
-                        </h3>
+                        <h3>{{ $value['content'] }}</h3>
                     </div>
                     <div class="seeMore">查看全文</div>
-                    <div class="seeNum"><img src="/images/buxian/eye.png"><span class="num">123</span></div>
+                    <div class="seeNum"><img src="/images/buxian/eye.png"><span class="num">222</span></div>
                 </li>
                 @endforeach
             </ul>
