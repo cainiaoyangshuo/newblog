@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>咸鱼不闲</title>
+    <title>Playmate</title>
     <link rel="stylesheet" href="/css/buxian/base.css" type="text/css">
     <link rel="stylesheet" href="/css/buxian/common.css" type="text/css">
     <link rel="stylesheet" href="/css/buxian/index.css?v=1545668898444" type="text/css">
