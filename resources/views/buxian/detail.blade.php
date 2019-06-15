@@ -37,7 +37,14 @@
                         <div class="con">
                             <h3>{{$result['task']['content']}}</h3>
                         </div>
-                        <p class="status">待领取</p>
+                        @if($result['task']['status']==1)
+                            <p class="status">待领取</p>
+                        @elseif($result['task']['status']==2)
+                            <p class="status">已领取</p>
+                        @else   
+                            <p class="status">已结束</p>
+                        @endif
+                        
                     </li>
                 </ul>
                 <div class="mysteryItem">
