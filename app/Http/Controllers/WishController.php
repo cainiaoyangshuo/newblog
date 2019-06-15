@@ -13,9 +13,12 @@ use App\BuxianTasks;
 use App\BuxianGetTask;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use PDO;
 
 class WishController extends BaseController
 {
+	
 
     /**
      * 任务列表
@@ -24,11 +27,12 @@ class WishController extends BaseController
      */
     public function index(Request $request)
     {
+	$user = Auth::user();    
 	//1已发布 2已认领
         $type = $request->get('type');
 
-	    $user = Auth::user();
-	    $userId = Auth::id();
+	$user = Auth::user();
+    	$userId = Auth::id();
         $list = Wish::getWishList($userId,$type);
         $results = [];
         foreach ($list as $value) {
@@ -44,6 +48,23 @@ class WishController extends BaseController
             $result['status'] =  $value->status;
             $result['user_name'] = $user->name;
             $result['head_image'] = $user->avatar;
+        if (!isset($type)) {
+            return false;
+	}
+        $list = Wish::getWishList($userId,$type);
+        $results = [];
+        foreach ($list as $value) {
+	    if($type == 2){
+                $value=DB::table('buxian_tasks')->where('id',trim($value->task_id))->first();
+            }
+	    $result['id'] = $value->id;
+            $result['title'] = $value->title;
+            $result['content'] = $value->content;
+            $result['time'] = $value->created_at;
+	    $result['user_id'] = $value->user_id;
+	    $result['status'] =  $value->status;
+            $result['user_name'] = $user['name'];
+            $result['head_image'] = $user['avatar'];
             $results[] = $result;
         }
         
@@ -91,39 +112,38 @@ class WishController extends BaseController
     }
 
     public function detail(Request $request){
-	    $taskId = 1;
-		   // = $request->get('taskId');
-		    $userId = 600032;
-		    //=  $request->get('userId');
+	$user = Auth::user();    
+	DB::setFetchMode(PDO::FETCH_ASSOC);
+	$user = DB::table('users')->where('id', 600032)->get()->toArray();    
+	$taskId = 1; 
+		//$request->get('taskId');
+        
 	if (!isset($taskId)) {
             return false;
 	}
-	$value=DB::table('buxian_tasks')->where('id',trim($taskId))->first();
-	$info = DB::table('buxian_get_task')->where('task_id',trim($taskId))->first();
-	//如果相等则证明是邀请人点击，获取认领人信息
-	//如果不相等则是认领人点击，获取邀请人信息
-	if($userId == $value->user_id){
-	    $get_userId = $info->user_id;
+	$value=DB:table('buxian_tasks')->where('id',trim($taskId))->where('user_id',trim($user['id']))->first();
+	//如果为空，则为认领人点击
+	if(empty($value)){
+	   $get_userinfo=DB::table('users')->where('id', $value->user_id)->get()->toArray();
+	   $user = $get_userInfo;
 	}else{
-            $userId = $info->user_id; 
-            $get_userId = $userId;
-		   
+	   //邀请人点击
+	   $info = DB::table('buxian_get_task')->where('task_id',trim($taskId))->first();
+	   $get_userinfo=DB::table('users')->where('id', $info->user_id)->get()->toArray();
 	}
-	$get_userInfo =  DB::table('buxian_user')->where('id', $get_userId)->first();
-	$userInfo =  DB::table('buxian_user')->where('id', $userId)->first();
-	$result['head_image'] = $userInfo->head_image;
-	$result['get_head_image'] = $get_userInfo->head_image;
+	//get指神秘人信息	
+	$result['head_image'] = $user['atavar'];
+	$result['get_head_image'] = $get_userinfo['atavar'];
 	$result['status'] = $value->status;
-	$result['user_name'] = $userInfo->user_name;
-	$result['get_user_name'] = $get_userInfo->user_name;
+	$result['user_name'] = $user['name'];
+	$result['get_user_name'] = $get_userInfo['name'];
 	$result['created_at'] =  $value->created_at;
-	$result['get_age'] = '';
-	$result['get_cons'] = '';
-	$result['get_wechat'] = '';
+	$result['get_age'] = $get_userInfo['age'];
+	$result['get_cons'] = $get_userInfo['constellation'];
+	$result['get_wechat'] = $get_userInfo['WeChat'];
  	$result['title'] = $value->title;
  	$result['content'] =  $value->content;
 	return json_encode($result);
-    
     }
 
 
