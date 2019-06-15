@@ -1,7 +1,7 @@
 $(function(){
     // 返回
     $(".goBack").click(function () {
-      history.go(-1);
+      location.href = "/?form=publish";
     })
 
     $(".inputArea").keyup(function(){

@@ -15,6 +15,11 @@ $(function(){
         $(".tabBox li").removeClass("active");
         $(".tabBox li.me").addClass("active");
         $(".meItem").show();
+    }else{
+        $(".conItem").hide();
+        $(".tabBox li").removeClass("active");
+        $(".tabBox li.square").addClass("active");
+        $(".squareItem").show();
     }
 
     $(".tabBox li").click(function(){

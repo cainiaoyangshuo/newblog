@@ -389,10 +389,10 @@
 .detail .listBox{
     margin-top: 0;
 }
-.detail .labelBox .label {
+/* .detail .labelBox .label {
     text-align: left;
     padding-left: 0.26rem;
-}
+} */
 .detail .listUl .con{
     height: auto;
 }
@@ -469,10 +469,10 @@
     height: 100%;
     padding: 0 0 0 0.2rem;
 }
-.editInfo .labelBox .label {
+/* .editInfo .labelBox .label {
     text-align: left;
     padding-left: 0.26rem;
-}
+} */
 
 /* 编辑陪伴 */
 .publish .conBox {
@@ -481,10 +481,10 @@
     padding: 0 0 0 0.2rem;
     overflow-y: scroll;
 }
-.publish .labelBox .label{
+/* .publish .labelBox .label{
     text-align: left;
     padding-left: 0.26rem;
-}
+} */
 .publish .labelBox .publishBtn {
     position: absolute;
     right: 0.15rem;
