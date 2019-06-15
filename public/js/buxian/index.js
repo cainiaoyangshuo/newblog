@@ -70,14 +70,10 @@ $(function(){
                 "data": {},
                 "success": function (response) {
                     $(".loading").hide();
-                    if(response.errorCode==0){
-                        P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
-                        setTimeout(function () {
-                            location.href = "/";
-                        }, 1);
-                    }else{
-                        P2PWAP.ui.toast(response.errorMsg);
-                    }
+                    P2PWAP.ui.toast('愿望领取成功,你可以在愿望单中查看详情！');
+                    setTimeout(function () {
+                        location.href = "/";
+                    }, 1);
                 },
                 "fail": function (msg) {
                     P2PWAP.ui.toast(msg);
