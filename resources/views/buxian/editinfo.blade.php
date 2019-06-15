@@ -24,8 +24,8 @@
     <div class="conBox">
         <div class="editItem">
             <span class="label">头像</span>
-            @if(!empty($list['imageUrl']))
-                <img src="{{ $list['imageUrl'] }}" class="avatar">
+            @if(!empty($list['avatar']))
+                <img src="{{ $list['avatar'] }}" class="avatar">
             @else
                 <img src="/images/buxian/avatar.jpg" class="avatar">
             @endif
@@ -37,7 +37,7 @@
         </div>
         <div class="editItem">
             <span class="label">昵称</span>
-            <span class="labelCon">{{ $list['userName'] }}</span>
+            <span class="labelCon">{{ $list['name'] }}</span>
             <img src="/images/buxian/arrow.png" class="arrow">
         </div>
         <div class="editItem">

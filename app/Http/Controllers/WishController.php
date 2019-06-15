@@ -89,4 +89,41 @@ class WishController extends BaseController
         }
     }
 
+    public function detail(Request $request){
+	    $taskId = 1;
+		   // = $request->get('taskId');
+		    $userId = 600032;
+		    //=  $request->get('userId');
+	if (!isset($taskId)) {
+            return false;
+	}
+	$value=DB::table('buxian_tasks')->where('id',trim($taskId))->first();
+	$info = DB::table('buxian_get_task')->where('task_id',trim($taskId))->first();
+	//如果相等则证明是邀请人点击，获取认领人信息
+	//如果不相等则是认领人点击，获取邀请人信息
+	if($userId == $value->user_id){
+	    $get_userId = $info->user_id;
+	}else{
+            $userId = $info->user_id; 
+            $get_userId = $userId;
+		   
+	}
+	$get_userInfo =  DB::table('buxian_user')->where('id', $get_userId)->first();
+	$userInfo =  DB::table('buxian_user')->where('id', $userId)->first();
+	$result['head_image'] = $userInfo->head_image;
+	$result['get_head_image'] = $get_userInfo->head_image;
+	$result['status'] = $value->status;
+	$result['user_name'] = $userInfo->user_name;
+	$result['get_user_name'] = $get_userInfo->user_name;
+	$result['created_at'] =  $value->created_at;
+	$result['get_age'] = '';
+	$result['get_cons'] = '';
+	$result['get_wechat'] = '';
+ 	$result['title'] = $value->title;
+ 	$result['content'] =  $value->content;
+	return json_encode($result);
+    
+    }
+
+
 }

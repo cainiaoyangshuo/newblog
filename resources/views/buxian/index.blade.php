@@ -80,7 +80,7 @@
                 <img src="/images/buxian/avatar.jpg" class="avatar">
                 <span class="name">咸鱼不闲</span>
             </div>
-            <a class="divItem infoItem" href="/buser?userId=600032">
+            <a class="divItem infoItem" href="/buser">
                 <span>个人资料</span>
                 <img src="/images/buxian/info.png" alt="">
             </a>
