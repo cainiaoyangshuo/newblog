@@ -29,7 +29,7 @@
         <img src="/images/buxian/loading.gif" alt="">
     </div>
     <div class="labelBox">
-        <span class="label">Home</span>
+        <span class="label">广场</span>
         <a href="/tasks/create">
             <img src="/images/buxian/add.png" class="addBtn">
         </a>

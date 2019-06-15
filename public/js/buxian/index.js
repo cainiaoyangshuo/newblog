@@ -1,7 +1,7 @@
 $(function(){
     var squareHeight=$(window).height()-$(".labelBox").height()-$(".tabBox").height()-15;
     $(".conBox").css("height", squareHeight + "px");
-    var wishHeight = squareHeight - $(".navBox").height()-25;
+    var wishHeight = squareHeight - $(".navBox").height();
     $(".wishItem .listBox").css("height", wishHeight + "px");
 
     $(".tabBox li").click(function(){
@@ -20,6 +20,8 @@ $(function(){
         if(index==1){
             //获取wish列表数据
             getWish(1);
+        }else if(index==3){//个人资料
+            $(".conBox").css("height", "100%");
         }
     })
 
@@ -81,11 +83,33 @@ $(function(){
                     P2PWAP.ui.toast(msg);
                 }
             })
+        } else if ($(this).hasClass("delSure")){//删除弹窗点击确认
+            var taskId = $(this).attr("taskId");
+            $(".loading").show();
+            $.ajax({
+                "url": "/tasks/delete/" + taskId,
+                "type": "get",
+                "data": {},
+                "success": function (response) {
+                    $(".loading").hide();
+                    if (response.errorCode == 0) {
+                        P2PWAP.ui.toast('愿望删除成功！');
+                        setTimeout(function () {
+                            getWish(1);
+                        }, 1);
+                    } else {
+                        P2PWAP.ui.toast(response.errorMsg);
+                    }
+                },
+                "fail": function (msg) {
+                    P2PWAP.ui.toast(msg);
+                }
+            })
         }
     })
 
     //获取wish列表数据
-    // getWish(1);
+    getWish(1);
 
     //wish列表类型切换
     $(".wishItem .navBox li").click(function(){
@@ -110,11 +134,11 @@ $(function(){
                         var $lis='';
                         $.each(list,function(index,item){
                             if(item.status=="0"){//待领取
-                                $lis += '<li class="waitGet">';
+                                $lis += '<li class="waitGet" data-id="'+item.id+'">';
                             } else if (item.status == "1"){//已领取
-                                $lis += '<li class="alreadyGet">';
+                                $lis += '<li class="alreadyGet" data-id="' + item.id + '">';
                             }else{//已结束
-                                $lis += '<li class="finish">';
+                                $lis += '<li class="finish" data-id="' + item.id + '">';
                             }
                             item.head_image = item.head_image ? item.head_image : "/images/buxian/avatar.jpg";
                             var $status = item.status == 0 ? '待领取' : item.status == 1 ? '已领取' : '已结束';
@@ -161,19 +185,16 @@ $(function(){
     })
     // wish列表点击删除
     $(".deleteBtn").click(function(e){
+        var taskId=$(this).parents("li").attr("data-id");
         e.stopPropagation();
         $(".mask").show();
-        $(".btnRight").addClass("delSure");
+        $(".btnRight").addClass("delSure").attr("taskId", taskId);
         $(".maskCon .tipTop").text("确认删除愿望吗？");
         $(".maskCon .tipBottom").text("删除后将不会有神秘人看到此条消息！");
     })
 
-    // 删除弹窗点击取消
+    // 弹窗点击取消
     $(".btnCancel").click(function () {
         $(".mask").hide();
-    })
-    // 删除弹窗点击确认
-    $(".delSure").click(function () {
-        
     })
 })
