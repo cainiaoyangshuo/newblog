@@ -24,4 +24,12 @@ class BuserController extends Controller
 
         return view('buxian.editinfo')->with(['list' => $list]);
     }
+
+    public function userIndex(){    
+	$user = Auth::user();
+        $res['name'] = $user['name'];
+	$res['avatar'] = $user['avatar'];
+	$list = $res;
+	return view('buxian.index.blade')->with(['list' => $list]);
+    }
 }
