@@ -29,8 +29,12 @@ class WishController extends BaseController
         //1已发布 2已认领
         $type = $request->get('type');
 
-        $user = Auth::user();
         $userId = Auth::id();
+
+        if (empty($userId)) {
+            return $this->returnJsonData('', 1007, '登录已过期，请重新登录');
+        }
+
         $list = Wish::getWishList($userId,$type);
         $results = [];
 
@@ -110,32 +114,27 @@ class WishController extends BaseController
     public function detail($id)
     {
         $user = Auth::user();
+
         if(!empty($user)){
             $user = $user->toArray();
         }
+
         $taskId = intval($id);
-//        if (empty($taskId)) {
-//            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'task id 为空')));
-//            return false;
-//        }
         $task = BuxianTasks::findOrFail($taskId);
+
         if(!empty($task)){
             $task = $task->toArray();
         }
+
         $getTask  = BuxianGetTask::query()->where('task_id','=', $task['id'])->first();
+
         if(!empty($getTask)){
             $getTask = $getTask->toArray();
         }
-//        if(empty($getTask) || $task['status'] == 1) {
-//            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 没有被领取")));
-//            return false;
-//        }
-//        if(!in_array($user['id'],[$task['user_id'],$getTask['user_id']])){
-//            Log::error(implode(' | ', array(__CLASS__, __FUNCTION__, __LINE__, "task id 为{$id} 用户非相关人士")));
-//            return false;
-//        }
+
         $role = ($task['user_id'] == $user['id']) ? 1 : 2;
         $agreeUser = array();
+
         if(!empty($getTask['user_id'])){
             $agreeUser = User::findOrFail($getTask['user_id']);
             if(!empty($agreeUser)){
@@ -143,20 +142,19 @@ class WishController extends BaseController
             }
         }
 
-//        if(empty($agreeUser)){
-//            Log::error(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,"task id 为{$id} 领取用户不存在")));
-//            return false;
-//        }
         $publishUser = User::findOrFail($task['user_id']);
+
         if(!empty($publishUser)){
             $publishUser = $publishUser->toArray();
         }
+
         $result = array(
             'role' => $role,
             'publishUser' => $publishUser,
             'task' => $task,
             'agreeUser' => $agreeUser,
         );
+
         return view('buxian.detail')->with(['result' => $result]);
     }
 
