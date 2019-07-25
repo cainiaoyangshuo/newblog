@@ -48,7 +48,7 @@ class Tasks extends Model
         //if ($count) {
         //    $coun = DB::table(self::TABLE)->count();
         //}
-        $result = DB::table(self::TABLE)->where('is_delete', 0)->orderByDesc('created_at')->get()->toArray();
+        $result = DB::table('buxian_tasks as t')->join('users', 't.user_id', '=', 'users.id')->where('t.is_delete', 0)->orderByDesc('t.created_at')->get()->toArray();
         return $result;
     }
 

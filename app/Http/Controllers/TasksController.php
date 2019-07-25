@@ -38,8 +38,6 @@ class TasksController extends BaseController
 
         foreach ($list as $value) {
 
-            $user = DB::table('users')->where('id', $value->user_id)->first();
-
             $result['id'] = $value->id;
             $result['category']     = Tasks::$categorys[$value->category];
             $result['content']      = $value->content;
@@ -47,8 +45,8 @@ class TasksController extends BaseController
             //$time = time() - $time > 59 ?
             $result['time']         = $value->created_at;
             $result['user_id']      = $value->user_id;
-            $result['user_name']    = $user->name;
-            $result['head_image']   = $user->avatar;
+            $result['user_name']    = $value->name;
+            $result['head_image']   = $value->avatar;
             $result['self']         = $value->user_id == $userId ? 1 : 2;
             $result['status']       = $value->status;
             $result['pv']           = $value->page_views;
