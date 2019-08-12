@@ -69,9 +69,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'admin']], funct
 
 // Article
 Route::get('/article', 'ArticleController@index');
-//Route::get('/', function (){
-//    return View::make('index');
-//});
+Route::get('/', function (){
+    return View::make('index');
+});
 // Route::get('{slug}', 'ArticleController@show');
 
 
@@ -88,7 +88,7 @@ Route::get('/tasks/delete/{id}', 'TasksController@delete');
 
 Route::get('/user', 'UserController@index');
 
-Route::get('/', 'TasksController@index');
+//Route::get('/', 'TasksController@index');
 Route::get('/detail', 'TasksController@detail');
 Route::get('/buser', 'BuserController@index');
 Route::get('/wish', 'WishController@index');
@@ -101,3 +101,14 @@ Route::get('/publish', function (){
 Route::get('/edit', function (){
     return View::make('buxian.editinfo');
 });
+
+
+
+Route::get('/test', function () {
+    return View::make('Test');
+});
+Route::get('/push', function () {
+    return View::make('testSocket.push');
+});
+
+Route::get('', 'TestSocketController@push');

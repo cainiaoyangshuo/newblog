@@ -5,7 +5,5 @@
     <mapping directory="$PROJECT_DIR$/../weather" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../../leetcode" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../../work/firstp2p" vcs="Git" />
-    <mapping directory="/Volumes/dev/git/firstp2p" vcs="Git" />
-    <mapping directory="/Volumes/dev/git/ncfph" vcs="Git" />
   </component>
 </project>

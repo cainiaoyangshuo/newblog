@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\libs\SocketService;
 
 class Send extends Command
 {
@@ -11,7 +12,7 @@ class Send extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'create:socket';
 
     /**
      * The console command description.
@@ -37,6 +38,52 @@ class Send extends Command
      */
     public function handle()
     {
-        //
+        $data = [
+            [
+                'id' => 1,
+                'name' => 'one',
+                'child' => [
+                    'id' => 2,
+                    'name' => 'two',
+                    'child' => [
+                        'id' => 3,
+                        'name' => 'three',
+                        'child' => [
+                            'id' => 4,
+                            'name' => 'four',
+                            'child' => [
+
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $target = 4;
+
+        var_dump($this->find($data, $target));
+        exit;
+
+    }
+
+    public function find($data, $m)
+    {
+        static $res = [];
+
+        foreach ($data as $key => $val) {
+var_dump($data);
+var_dump($val['id']);
+            if ($m == $val['id']) {
+                return $res;
+            }
+
+            if (isset($val['child']) && !empty($val['child'])) {
+                $res[] = $val['name'];
+                $this->find($val['child'], $m);
+            }
+        }
+
+
     }
 }

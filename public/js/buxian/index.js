@@ -70,6 +70,20 @@ $(function(){
 
     // 领走愿望
     $(".getBtn").click(function (e) {
+        var sock = WebSocket("ws://127.0.0.1：33033");
+        sock.onopen = function() {
+
+            // 状态为1为握手成功
+            if (sock.readyState == 1) {
+                sock.send('type=add&ming'+n);
+            }
+        }
+
+        sock.onerror = function () {
+            console.log('socket error');
+        }
+
+
         e.stopPropagation();
         $(".mask").show();
         var taskId=$(this).attr("data-id");
