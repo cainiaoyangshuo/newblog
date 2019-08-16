@@ -76,7 +76,7 @@ Route::get('/', function (){
 
 
 
-Route::get('/task', 'TasksController@index');
+Route::get('/index', 'TasksController@index');
 Route::get('tasks/create', 'TasksController@create');
 // error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
 Route::post('/tasks/store', 'TasksController@store');

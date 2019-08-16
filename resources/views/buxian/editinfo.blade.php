@@ -67,7 +67,7 @@
 <script>
     $(function(){
         $(".goBack").click(function () {
-            location.href="/?form=info";
+            location.href="/index?form=info";
         })
     })
     
