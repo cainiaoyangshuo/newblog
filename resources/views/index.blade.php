@@ -48,7 +48,7 @@
                     <li class="active"><a href="/article">技术</a></li>
                     <li class="active"><a href="/article">感悟</a></li>
                     @if (Route::has('register'))
-                       <li class="active"><a href="{{ route('register') }}">天气提醒注册入口</a></li>
+                       {{--<li class="active"><a href="{{ route('register') }}">天气提醒注册入口</a></li>--}}
                     @endif
                     {{--<li><a href="/about">About</a></li>--}}
                     {{--<li><a href="/article">Blog</a></li>--}}
