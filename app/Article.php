@@ -7,7 +7,7 @@ use App\Tools\Markdowner;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Articles extends Model
+class Article extends Model
 {
     use SoftDeletes;
 
