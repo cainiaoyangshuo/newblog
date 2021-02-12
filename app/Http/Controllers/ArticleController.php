@@ -15,9 +15,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::checkAuth()
-            ->orderBy(config('blog.article.sortColumn'), config('blog.article.sort'))
-            ->paginate(config('blog.article.number'));
+         $articles = Article::checkAuth()
+             ->orderBy(config('blog.article.sortColumn'), config('blog.article.sort'))
+             ->paginate(config('blog.article.number'));
+
 
         return view('article.index', compact('articles'));
     }

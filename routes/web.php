@@ -64,7 +64,7 @@ Route::group(['prefix' => 'tag'], function () {
 
 /* Dashboard Index */
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'admin']], function () {
-   Route::get('{path?}', 'HomeController@dashboard')->where('path', '[\/\w\.-]*');
+    Route::get('{path?}', 'HomeController@dashboard')->where('path', '[\/\w\.-]*');
 });
 
 // Article
@@ -72,4 +72,43 @@ Route::get('/article', 'ArticleController@index');
 Route::get('/', function (){
     return View::make('index');
 });
-Route::get('{slug}', 'ArticleController@show');
+// Route::get('{slug}', 'ArticleController@show');
+
+
+
+Route::get('/index', 'TasksController@index');
+Route::get('tasks/create', 'TasksController@create');
+// error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
+Route::post('/tasks/store', 'TasksController@store');
+Route::get('/tasks/delete/{id}', 'TasksController@delete');
+// Route::get('/tasks/store',function(){
+//     error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234')));
+//     // error_log(implode(' | ',array(__CLASS__,__FUNCTION__,__LINE__,'gtest--1234',json_encode($_REQUEST))));
+// });
+
+Route::get('/user', 'UserController@index');
+
+//Route::get('/', 'TasksController@index');
+Route::get('/detail', 'TasksController@detail');
+Route::get('/buser', 'BuserController@index');
+Route::get('/wish', 'WishController@index');
+Route::get('/userindex', 'BuserController@userIndex');
+Route::get('/wish/agree/{id}', 'WishController@agree');
+Route::get('/wish/detail/{id}', 'WishController@detail');
+Route::get('/publish', function (){
+    return View::make('buxian.publish');
+});
+Route::get('/edit', function (){
+    return View::make('buxian.editinfo');
+});
+
+
+
+Route::get('/test', function () {
+    return View::make('Test');
+});
+Route::get('/push', function () {
+    return View::make('testSocket.push');
+});
+
+//Route::get('', 'TestSocketController@push');

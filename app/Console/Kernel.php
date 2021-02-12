@@ -18,6 +18,10 @@ class Kernel extends ConsoleKernel
         Commands\CreateAdmin::class,
         SendEmails::class,
         Commands\ImportCityCodes::class,
+        Commands\User::class,
+        Commands\SaveToDB::class,
+        Commands\Send::class,
+        Commands\SwooleSocket::class,
     ];
 
     /**
